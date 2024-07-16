@@ -103,7 +103,8 @@ void GameScene::Initialize() {
 	prediction->Initialize(predictionModel, predictionTex);
 	predictionColor = new ObjectColor;
 	predictionColor->Initialize();
-	predictionColor->SetColor(Vector4{ 0.0f,0.0f,0.0f,0.0f });
+	predictionColor->SetColor(Vector4{ 1.0f,1.0f,1.0f,0.4f });
+	predictionColor->TransferMatrix();
 	//predictionColor.Initialize();
 	//predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
 
