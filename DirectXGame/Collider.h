@@ -12,7 +12,7 @@ public :
 	virtual void OnCollision(Collider *other);
 	virtual Vector3 GetWorldPosition() = 0;
 	std::string GetName() { return name; }
-	void SetName(std::string name_) { name = name_; }
+	void SetName(const std::string& name_) { name = name_; }
 
 private:
 	float radius_ = 10.0f;
