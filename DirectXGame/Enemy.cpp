@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "GameScene.h"
 #include "PlayerBoomerang.h"
+
 Enemy::~Enemy() {
 
 	// for (int i = 0; i < timedCalls_.size(); i++)
@@ -24,7 +25,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	// Fire();
 	isDead_ = false;
 	SetRadius(5);
-
+	currentStopTime = 0;
 	// ApproachInitialize();
 }
 
@@ -40,6 +41,7 @@ void Enemy::Update() {
 
 #ifdef _DEBUG
 	ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
+	ImGui::Text("currentStopTime=%d", currentStopTime);
 
 #endif // _DEBUG
 }
@@ -101,6 +103,14 @@ void Enemy::ApproachMove() {
 
 void Enemy::LeaveMove() { worldTransform_.translation_ += velocity_; }
 
+void Enemy::Stoping() {
+	currentStopTime++;
+	if (currentStopTime > stopTime) {
+
+		phase_ = Phase::Approach;
+	}
+}
+
 void Enemy::Fire() {
 	EnemyBullet* newBullet = new EnemyBullet();
 	Vector3 pWorldPos = player_->GetWorldPosition();
@@ -131,7 +141,8 @@ Vector3 Enemy::GetWorldPosition() {
 }
 
 void Enemy::OnCollision() {
-	// isDead_ = true;
+	phase_ = Phase::Stoppage;
+	currentStopTime = 0;
 }
 
-void (Enemy::*Enemy::spFuncTable[])() = {&Enemy::ApproachMove, &Enemy::LeaveMove};
+void (Enemy::*Enemy::spFuncTable[])() = {&Enemy::ApproachMove, &Enemy::LeaveMove, &Enemy::Stoping};

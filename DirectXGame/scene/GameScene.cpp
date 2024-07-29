@@ -53,12 +53,7 @@ void GameScene::Initialize() {
 	player_->Initialize(model_, texHandle_, playerPosition);
 
 
-	playerBoom_ = new PlayerBoomerang;
-	playerModel_= Model::CreateFromOBJ("player", true);
-	playerTex_ = TextureManager::Load("./Resources/addTexture/player.png");
-	playerPosition = { 0,0,-1 };
-	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
-
+	
 	//player_->Initialize(model_, texHandle_);
 
 	debugCamera_ = new DebugCamera(1280, 720);
@@ -90,12 +85,20 @@ void GameScene::Initialize() {
 	LoadEnemyPopDate();
 	isEnemySpownWaitTime_ = 0;
 	TextureManager::Load("./Resources/addTexture/reticle.png");
+	playerBoom_ = new PlayerBoomerang;
+	playerModel_ = Model::CreateFromOBJ("player", true);
+	playerTex_ = TextureManager::Load("./Resources/addTexture/player.png");
+	playerPosition = {0, -10, 10};
+	playerBoom_->SetParent(&railCamera_->GetWorldTransform());
+	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
+
 
 	boomerang = new Boomerang;
 	boomerangModel = Model::CreateFromOBJ("boomerang", true);
 	boomerangTex= TextureManager::Load("./Resources/addTexture/boomerang.png");
 	boomerang->Init(boomerangModel, boomerangTex);
-	boomerang->SetPlayer(playerBoom_);
+	//boomerang->SetPlayer(playerBoom_);
+	boomerang->SetParent(&playerBoom_->GetWorldTransform());
 
 	prediction = new Prediction;
 	predictionModel = Model::CreateFromOBJ("prediction", true);
@@ -251,18 +254,18 @@ void GameScene::CheckAllCollisions()
 
 	
 #pragma region playerToEnemyBullet
-	for (auto* bullet : enemyBullets_)
+	/*for (auto* bullet : enemyBullets_)
 	{
 		
 		CheckCollisionPair(player_, bullet);
 		
-	}
-	for (auto* enemy : enemys_)
+	}*/
+	/*for (auto* enemy : enemys_)
 	{
 
 		CheckCollisionPair(player_, enemy);
 
-	}
+	}*/
 	for (auto* enemy : enemys_)
 	{
 
@@ -354,6 +357,7 @@ void GameScene::LoadEnemyPopDate()
 
 }
 
+//エネミーの生成
 void GameScene::UpdateEnemyPopCommands()
 {
 

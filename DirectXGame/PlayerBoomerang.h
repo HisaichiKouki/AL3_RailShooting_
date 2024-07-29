@@ -30,6 +30,8 @@ public:
 		viewProjection_ = viewProjection;
 	}
 	void OnCollision() override;
+	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
+	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 
 private:
 	WorldTransform worldTransform_;

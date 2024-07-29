@@ -14,6 +14,7 @@ enum class Phase
 {
 	Approach,
 	Leave,
+	Stoppage,
 };
 class Enemy: public Collider
 {
@@ -27,6 +28,7 @@ public:
 	void ApproachInitialize();
 	void ApproachMove();
 	void LeaveMove();
+	void Stoping();
 
 	void Fire();
 	void FireReset();
@@ -65,6 +67,8 @@ private:
 	GameScene* gameScene_ = nullptr;
 
 	bool isDead_;
+	const int stopTime=60;
+	int currentStopTime;
 
 public:
 	static const int32_t kFireCoolTime = 30 * 1;

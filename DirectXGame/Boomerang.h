@@ -30,6 +30,8 @@ public:
 	void Hold();
 	void SetPlayer(PlayerBoomerang* player_) { player = player_; }
 	void  PlayerPosXY();
+	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
+
 	void OnCollision() override;
 	Vector3 GetWorldPosition() override;
 private:
