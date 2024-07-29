@@ -36,7 +36,7 @@ public:
 	void SetPlayer(PlayerBoomerang* player) { player_ = player; }
 	Vector3 GetWorldPosition() override;
 
-	void OnCollision() override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }

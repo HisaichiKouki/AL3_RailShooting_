@@ -29,7 +29,7 @@ public:
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;
 	}
-	void OnCollision() override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 

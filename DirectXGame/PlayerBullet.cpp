@@ -21,8 +21,7 @@ void PlayerBullet::Update() {
 void PlayerBullet::Draw(const ViewProjection& viewprojection) { 
 	model_->Draw(worldTransform_, viewprojection, textureHandle_); }
 
-void PlayerBullet::OnCollision()
-{
+void PlayerBullet::OnCollision([[maybe_unused]] Collider* other) {
 	isDead_ = true;
 }
 

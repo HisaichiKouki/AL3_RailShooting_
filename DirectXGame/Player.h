@@ -43,7 +43,7 @@ public:
 	void SetViewProjection(const ViewProjection* viewProjection) {
 		viewProjection_ = viewProjection;
 	}
-	void OnCollision() override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 
 	const std::list<PlayerBullet*>& GetBullets() const { return bullets_; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }

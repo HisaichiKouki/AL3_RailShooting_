@@ -14,7 +14,7 @@ public:
 	void Update();
 	void Draw(const ViewProjection& viewprojection);
 
-	void OnCollision()override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 
 	Vector3 GetWorldPosition() override;
 private:

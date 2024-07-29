@@ -57,8 +57,7 @@ Vector3 EnemyBullet::GetWorldPosition()
 	return worldPos;
 }
 
-void EnemyBullet::OnCollision()
-{
+void EnemyBullet::OnCollision([[maybe_unused]] Collider* other) {
 	isDead_ = true;
 }
 

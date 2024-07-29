@@ -32,7 +32,7 @@ public:
 	void  PlayerPosXY();
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
-	void OnCollision() override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 	Vector3 GetWorldPosition() override;
 private:
 	WorldTransform worldTransform_;

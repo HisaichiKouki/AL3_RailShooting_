@@ -329,9 +329,7 @@ Vector3 Player::Get3DReticleWorldPosition()
 }
 
 
-void Player::OnCollision()
-{
-}
+void Player::OnCollision([[maybe_unused]] Collider* other) {}
 
 void Player::SetParent(const WorldTransform* parent)
 {

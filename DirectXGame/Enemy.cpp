@@ -141,9 +141,13 @@ Vector3 Enemy::GetWorldPosition() {
 	return worldPos;
 }
 
-void Enemy::OnCollision() {
-	phase_ = Phase::Stoppage;
-	currentStopTime = 0;
+void Enemy::OnCollision([[maybe_unused]] Collider* other) {
+
+	if (other->GetName() == "boomerang") {
+		phase_ = Phase::Stoppage;
+		currentStopTime = 0;
+	}
+	
 }
 
 void (Enemy::*Enemy::spFuncTable[])() = {&Enemy::ApproachMove, &Enemy::LeaveMove, &Enemy::Stoping};

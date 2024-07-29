@@ -8,6 +8,7 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	worldTransform_.Initialize();
 	input = Input::GetInstance();
 	SetRadius(10);
+	SetName("boomerang");
 }
 
 void Boomerang::Update() {
@@ -77,7 +78,7 @@ void Boomerang::PlayerPosXY() {
 	worldTransform_.UpdateMatrix();
 }
 
-void Boomerang::OnCollision() {
+void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 	// バウンドする
 
 	if (boundCoolTime <= 0) {

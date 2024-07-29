@@ -67,6 +67,4 @@ Vector3 PlayerBoomerang::GetWorldPosition()
 	return worldPos;
 }
 
-void PlayerBoomerang::OnCollision()
-{
-}
+void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) {}

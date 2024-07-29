@@ -28,7 +28,7 @@ public:
 	void SetPlayer(PlayerBoomerang* player) { player_ = player; }
 	void SetHomingPower(float power) { homingPower = power; }
 
-	void OnCollision() override;
+	void OnCollision([[maybe_unused]] Collider* other) override;
 
 
 private:
