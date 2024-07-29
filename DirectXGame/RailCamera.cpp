@@ -19,6 +19,7 @@ void RailCamera::Update() {
 	if (input_->PushKey(DIK_D)) {
 		worldTransfome_.rotation_.z += rotateSpeed;
 	}
+	
 	// worldTransfome_.UpdateMatrix();
 
 #ifdef _DEBUG

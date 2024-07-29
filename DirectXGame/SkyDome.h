@@ -2,6 +2,7 @@
 #include <WorldTransform.h>
 #include <ViewProjection.h>
 #include <Model.h>
+#include <imgui.h>
 class SkyDome
 {
 public:
@@ -14,5 +15,8 @@ private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 
+	WorldTransform worldTransform2_;
+	float moveSpeed= 0.1f;
+	
 };
 

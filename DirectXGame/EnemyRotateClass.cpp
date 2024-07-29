@@ -8,6 +8,7 @@ void EnemyRotateClass::Init(float rotateZ) {
 
 void EnemyRotateClass::Update() {
 
+	//子オブジェクトのパラメーターによる、プレイヤーのホーミング処理
 	//worldTransform_.rotation_.z += 1;
 	worldTransform_.UpdateMatrix();
 

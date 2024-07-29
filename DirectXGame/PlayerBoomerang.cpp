@@ -35,7 +35,7 @@ void PlayerBoomerang::Move()
 {
 	moveDirection = { 0,0,0 };
 
-	/*if (input_->PushKey(DIK_LEFTARROW)) {
+	if (input_->PushKey(DIK_LEFTARROW)) {
 		moveDirection.x--;
 	}
 	if (input_->PushKey(DIK_RIGHTARROW)) {
@@ -47,7 +47,7 @@ void PlayerBoomerang::Move()
 	if (input_->PushKey(DIK_UPARROW)) {
 		moveDirection.y++;
 	}
-	moveDirection *= kCharacterSpeed;*/
+	moveDirection *= kCharacterSpeed;
 
 	worldTransform_.translation_ += moveDirection;
 
