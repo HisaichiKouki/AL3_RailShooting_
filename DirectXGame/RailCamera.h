@@ -3,6 +3,7 @@
 #include <ViewProjection.h>
 #ifdef _DEBUG
 #include <imgui.h>
+#include <Input.h>
 
 #endif // _DEBUG
 
@@ -21,6 +22,7 @@ private:
 
 	Vector3 velocity_ = { 0,0,0 };
 	Vector3 rotate_ = { 0.0f,0.000f,0.0f };
-	
+	float rotateSpeed = 0.1f;
+	Input* input_ = nullptr;
 };
 

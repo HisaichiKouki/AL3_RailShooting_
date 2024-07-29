@@ -4,6 +4,7 @@
 #include "AxisIndicator.h"
 
 #include <fstream>
+
 GameScene::GameScene() {  }
 
 GameScene::~GameScene() {
@@ -26,6 +27,9 @@ GameScene::~GameScene() {
 	for (Enemy* enemy : enemys_)
 	{
 		delete enemy;
+	}
+	for (EnemyRotateClass* pos : enemyRotates) {
+		delete pos;
 	}
 	/*for (auto itr = enemys_.begin(); itr != enemys_.end(); ++itr) {
 		delete* itr;
@@ -71,7 +75,7 @@ void GameScene::Initialize() {
 	enemys_.push_back(enemy2);*/
 
 	skydome_ = new SkyDome();
-	modelSkydome_ = Model::CreateFromOBJ("skydome", true);
+	modelSkydome_ = Model::CreateFromOBJ("skyholl", true);
 	skydome_->Init(modelSkydome_);
 	railCamera_ = new RailCamera();
 	railCamera_->Init({ 0.0f,0.0f,-9.0f }, player_->GetWorldTransform().rotation_);//player_->GetWorldTransform().rotation_
@@ -88,7 +92,7 @@ void GameScene::Initialize() {
 	playerBoom_ = new PlayerBoomerang;
 	playerModel_ = Model::CreateFromOBJ("player", true);
 	playerTex_ = TextureManager::Load("./Resources/addTexture/player.png");
-	playerPosition = {0, -10, 10};
+	playerPosition = {0, -10, 8.5f};
 	playerBoom_->SetParent(&railCamera_->GetWorldTransform());
 	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
 
@@ -150,6 +154,10 @@ void GameScene::Update() {
 		enemy->Update();
 
 	}
+	for (auto* enemy : enemyRotates) {
+
+		enemy->Update();
+	}
 	for (EnemyBullet* bullet : enemyBullets_)
 	{
 		bullet->Update();
@@ -175,6 +183,9 @@ void GameScene::Update() {
 		//viewProjection_.UpdateMatrix();
 	}
 	
+
+	
+
 	
 }
 
@@ -385,17 +396,26 @@ void GameScene::UpdateEnemyPopCommands()
 		if (word.find("POP") == 0)
 		{
 			getline(line_stream, word, ',');
-			float x = (float)std::atof(word.c_str());
+			float posZ = (float)std::atof(word.c_str());
 			getline(line_stream, word, ',');
-			float y = (float)std::atof(word.c_str());
-			getline(line_stream, word, ',');
-			float z = (float)std::atof(word.c_str());
-
+			float rotateZ = (float)std::atof(word.c_str());
+			/*getline(line_stream, word, ',');
+			float z = (float)std::atof(word.c_str());*/
+			/*getline(line_stream, word, ',');
+			float rotateZ = (float)std::atof(word.c_str());*/
+			EnemyRotateClass* enemyRotate;
+			enemyRotate = new EnemyRotateClass;
+			enemyRotate->Init(rotateZ);
 			Enemy* spownEnemy = new Enemy;
 			spownEnemy->SetGameScene(this);
 			spownEnemy->SetPlayer(playerBoom_);
-			spownEnemy->Initialize(model_, Vector3(x, y, z));
+			
+			spownEnemy->SetParent(&enemyRotate->GetWorldTransform());
+			
+			spownEnemy->Initialize(model_, Vector3(0, -10, posZ));
+			
 			enemys_.push_back(spownEnemy);
+			enemyRotates.push_back(enemyRotate);
 
 		}
 		else if (word.find("WAIT") == 0)

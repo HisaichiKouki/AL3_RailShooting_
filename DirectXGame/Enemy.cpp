@@ -42,6 +42,7 @@ void Enemy::Update() {
 #ifdef _DEBUG
 	ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
 	ImGui::Text("currentStopTime=%d", currentStopTime);
+	ImGui::Text("pos x=%f y=%f z=%f", GetWorldPosition().x,GetWorldPosition().y,GetWorldPosition().z);
 
 #endif // _DEBUG
 }
@@ -83,18 +84,18 @@ void Enemy::ApproachMove() {
 	    isFireCoolTime = kFireCoolTime;
 	}*/
 
-	Vector3 toPlayer = (player_->GetWorldPosition() - worldTransform_.translation_);
-	toPlayer = Normalize(toPlayer);
-	velocity_ = Normalize(velocity_);
+	//Vector3 toPlayer = (player_->GetWorldPosition() - worldTransform_.translation_);
+	//toPlayer = Normalize(toPlayer);
+	//velocity_ = Normalize(velocity_);
 
-	velocity_ = SLerp(velocity_, toPlayer, homingPower) * kMoveSpeed;
-	// 弾の回転
-	float vecLength = sqrtf(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
-	worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	//velocity_ = SLerp(velocity_, toPlayer, homingPower) * kMoveSpeed;
+	//// 弾の回転
+	//float vecLength = sqrtf(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
+	//worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
 
-	worldTransform_.rotation_.x = std::atan2(-velocity_.y, vecLength);
+	//worldTransform_.rotation_.x = std::atan2(-velocity_.y, vecLength);
 
-	worldTransform_.translation_ += velocity_;
+	worldTransform_.translation_ += approachVelocity_;
 	worldTransform_.UpdateMatrix();
 	if (worldTransform_.translation_.z < player_->GetWorldPosition().z + 1) {
 		phase_ = Phase::Leave;

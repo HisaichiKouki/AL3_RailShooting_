@@ -37,6 +37,7 @@ public:
 	Vector3 GetWorldPosition() override;
 
 	void OnCollision() override;
+	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	bool IsDead() { return isDead_; }

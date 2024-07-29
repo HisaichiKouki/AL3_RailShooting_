@@ -19,7 +19,7 @@
 #include "Prediction.h"
 #include <ObjectColor.h>
 #include <sstream>
-
+#include "EnemyRotateClass.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -94,6 +94,7 @@ private: // メンバ変数
 
 
 	std::list<Enemy*>enemys_;
+	std::list<EnemyRotateClass*> enemyRotates;
 	//Enemy* enemy_ = nullptr;
 
 	Model* modelSkydome_ = nullptr;
