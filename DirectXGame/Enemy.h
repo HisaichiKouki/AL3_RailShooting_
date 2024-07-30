@@ -43,6 +43,7 @@ public:
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
 	bool IsDead() { return isDead_; }
+	void SetHitPoint(int value) { currentHitPoint = value; }
 
 private:
 	WorldTransform worldTransform_;

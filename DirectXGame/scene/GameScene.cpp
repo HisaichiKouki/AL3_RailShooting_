@@ -399,6 +399,8 @@ void GameScene::UpdateEnemyPopCommands()
 			float posZ = (float)std::atof(word.c_str());
 			getline(line_stream, word, ',');
 			float rotateZ = (float)std::atof(word.c_str());
+			getline(line_stream, word, ',');
+			int hitPoint = (int)std::atof(word.c_str());
 			/*getline(line_stream, word, ',');
 			float z = (float)std::atof(word.c_str());*/
 			/*getline(line_stream, word, ',');
@@ -414,6 +416,7 @@ void GameScene::UpdateEnemyPopCommands()
 			
 			spownEnemy->Initialize(model_, Vector3(0, -10, posZ));
 			spownEnemy->SetBoomerang(boomerang);
+			spownEnemy->SetHitPoint(hitPoint);
 			enemys_.push_back(spownEnemy);
 			enemyRotates.push_back(enemyRotate);
 
