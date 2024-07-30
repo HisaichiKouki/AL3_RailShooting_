@@ -28,8 +28,7 @@ void SkyDome::Update() {
 		worldTransform2_.translation_.z = 990;
 	}
 
-	ImGui::DragFloat("z1", &worldTransform_.translation_.z, 1);
-	ImGui::DragFloat("z2", &worldTransform2_.translation_.z, 1);
+	
 	worldTransform_.UpdateMatrix();
 	worldTransform2_.UpdateMatrix();
 }

@@ -13,7 +13,7 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 
 void Boomerang::Update() {
 
-	//worldTransform_.rotation_.z = player->GetWorldTransform().rotation_.z;
+	// worldTransform_.rotation_.z = player->GetWorldTransform().rotation_.z;
 	if (boundCoolTime > 0) {
 		boundCoolTime--;
 	}
@@ -25,10 +25,7 @@ void Boomerang::Update() {
 #endif // _DEBUG
 }
 
-void Boomerang::Draw(ViewProjection& viewProjection) {
-	model_->Draw(worldTransform_, viewProjection, textureHandle_);
-
-}
+void Boomerang::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
 
 void Boomerang::Move() {
 	PlayerPosXY();
@@ -50,11 +47,14 @@ void Boomerang::Move() {
 	} else if (velocity.z < 0) {
 		moveDire = -1;
 	}
-	attackPower++;
-	if (worldTransform_.translation_.z < 0) {//player->GetWorldPosition().z
+
+	if (attackPower < maxAttackPower) {
+		attackPower++;
+	}
+	if (worldTransform_.translation_.z < 0) { // player->GetWorldPosition().z
 		attackPower = 0;
 		rotate.y = 0;
-		//worldTransform_.translation_.z = player->GetWorldPosition().z;
+		// worldTransform_.translation_.z = player->GetWorldPosition().z;
 		worldTransform_.translation_.z = 0;
 		phase = PhaseBoomerang::kHold;
 	}
@@ -72,8 +72,8 @@ void Boomerang::Hold() {
 }
 
 void Boomerang::PlayerPosXY() {
-	//worldTransform_.translation_.x = player->GetWorldPosition().x;
-	//worldTransform_.translation_.y = player->GetWorldPosition().y;
+	// worldTransform_.translation_.x = player->GetWorldPosition().x;
+	// worldTransform_.translation_.y = player->GetWorldPosition().y;
 
 	worldTransform_.UpdateMatrix();
 }

@@ -34,6 +34,8 @@ public:
 
 	void OnCollision([[maybe_unused]] Collider* other) override;
 	Vector3 GetWorldPosition() override;
+	int GetPower() { return attackPower; }
+
 private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -52,8 +54,8 @@ private:
 	float moveDire;
 	float boundCoolTime;
 
-	float attackPower;
-	float maxAttackPower;
+	int attackPower;
+	int maxAttackPower=100;
 
 };
 

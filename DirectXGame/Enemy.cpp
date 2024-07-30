@@ -1,6 +1,7 @@
 #include "Enemy.h"
 #include "GameScene.h"
 #include "PlayerBoomerang.h"
+#include "Boomerang.h"
 
 Enemy::~Enemy() {
 
@@ -26,6 +27,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	isDead_ = false;
 	SetRadius(5);
 	currentStopTime = 0;
+	currentHitPoint = setHitPoint;
 	// ApproachInitialize();
 }
 
@@ -40,8 +42,9 @@ void Enemy::Update() {
 	//(this->*pFunc)();
 
 #ifdef _DEBUG
-	ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
-	ImGui::Text("currentStopTime=%d", currentStopTime);
+	//ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
+	//ImGui::Text("currentStopTime=%d", currentStopTime);
+	ImGui::Text("currentHitPoint=%d", currentHitPoint);
 	ImGui::Text("pos x=%f y=%f z=%f", GetWorldPosition().x,GetWorldPosition().y,GetWorldPosition().z);
 
 #endif // _DEBUG
@@ -146,6 +149,11 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 	if (other->GetName() == "boomerang") {
 		phase_ = Phase::Stoppage;
 		currentStopTime = 0;
+		
+		currentHitPoint -= boomerang_->GetPower();
+		if (currentHitPoint<=0) {
+			isDead_ = true;
+		}
 	}
 	
 }

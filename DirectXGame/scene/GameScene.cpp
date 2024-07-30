@@ -413,7 +413,7 @@ void GameScene::UpdateEnemyPopCommands()
 			spownEnemy->SetParent(&enemyRotate->GetWorldTransform());
 			
 			spownEnemy->Initialize(model_, Vector3(0, -10, posZ));
-			
+			spownEnemy->SetBoomerang(boomerang);
 			enemys_.push_back(spownEnemy);
 			enemyRotates.push_back(enemyRotate);
 

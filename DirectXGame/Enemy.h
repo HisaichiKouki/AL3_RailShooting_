@@ -10,6 +10,7 @@
 #include "Collider.h"
 class PlayerBoomerang;
 class GameScene;
+class Boomerang;
 enum class Phase
 {
 	Approach,
@@ -34,6 +35,7 @@ public:
 	void FireReset();
 
 	void SetPlayer(PlayerBoomerang* player) { player_ = player; }
+	void SetBoomerang(Boomerang* boomerang) { boomerang_ = boomerang; }
 	Vector3 GetWorldPosition() override;
 
 	void OnCollision([[maybe_unused]] Collider* other) override;
@@ -64,12 +66,18 @@ private:
 	//std::list<EnemyBullet*>bullets_;
 
 	PlayerBoomerang* player_ = nullptr;
+	Boomerang* boomerang_ = nullptr;
 
 	GameScene* gameScene_ = nullptr;
 
 	bool isDead_;
 	const int stopTime=60;
 	int currentStopTime;
+
+	int currentHitPoint;
+	int setHitPoint = 1000;
+
+
 
 public:
 	static const int32_t kFireCoolTime = 30 * 1;
