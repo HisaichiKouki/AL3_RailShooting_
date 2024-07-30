@@ -25,7 +25,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	// pFunc = &Enemy::ApproachMove;
 	// Fire();
 	isDead_ = false;
-	SetRadius(5);
+	SetRadius(10);
 	currentStopTime = 0;
 	currentHitPoint = setHitPoint;
 	// ApproachInitialize();
@@ -154,6 +154,10 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 		if (currentHitPoint<=0) {
 			isDead_ = true;
 		}
+	}
+
+	 if (other->GetName() == "player") {
+		isDead_ = true;
 	}
 	
 }
