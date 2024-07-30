@@ -105,6 +105,7 @@ private: // メンバ変数
 	std::list<EnemyBullet*>enemyBullets_;
 
 	std::stringstream enemyPopCommands;
+	std::stringstream copyEnemyPopCommands;
 	
 	bool isEnemySpown_ = false;
 	int32_t isEnemySpownWaitTime_;

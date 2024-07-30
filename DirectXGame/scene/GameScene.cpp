@@ -371,6 +371,7 @@ void GameScene::LoadEnemyPopDate()
 	file.open("./Resources/Scripts/enemyPop.csv");
 	assert(file.is_open() && "スクリプトファイルが開けませんでした");//
 	enemyPopCommands << file.rdbuf();
+	copyEnemyPopCommands << enemyPopCommands.rdbuf();
 	file.close();
 
 }
@@ -388,7 +389,7 @@ void GameScene::UpdateEnemyPopCommands()
 	}
 	std::string line;
 
-	while (getline(enemyPopCommands,line))
+	while (getline(copyEnemyPopCommands, line))
 	{
 		std::istringstream line_stream(line);
 		std::string word;
@@ -437,6 +438,10 @@ void GameScene::UpdateEnemyPopCommands()
 
 			break;
 
+		} else if (word.find("RETRY") == 0) {
+			
+			copyEnemyPopCommands.seekg(0, std::ios_base::beg);
+			break;
 		}
 	}
 }
