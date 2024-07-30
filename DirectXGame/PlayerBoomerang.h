@@ -8,10 +8,13 @@
 #include <stdlib.h>
 #include <list>
 #include <Sprite.h>
+#include <iostream>
+#include <algorithm>
 
 
 #include "Collider.h"
 #include "Vector3AndMatrix4x4.h"
+#include "Easing.h"
 
 
 class PlayerBoomerang :public Collider
@@ -45,5 +48,8 @@ private:
 	const float kCharacterSpeed = 0.2f;
 	const float kMoveLimitX = 20;
 	const float kMoveLimitY = 12;
+
+	float moveEaseT;
+	float fastEaseT=15;//100-fastEaseTしてfastEaseTのフレーム分スキップする
 };
 

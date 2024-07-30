@@ -31,3 +31,20 @@ Vector3 SLerp(const Vector3& from, const Vector3& to, float t)
 	return from * coeff0 + to * coeff1;
 
 }
+
+float InOutQuad(float t, float totaltime, float min, float max) {
+	if (t <= 0.0f)
+		return min;
+	if (t >= totaltime)
+		return max;
+
+	t /= totaltime * 0.5f;
+	float deltaValue = max - min;
+
+	if (t < 1.0f) {
+		return min + deltaValue * 0.5f * t * t;
+	} else {
+		t -= 1.0f;
+		return min + deltaValue * (-0.5f * (t * (t - 2.0f) - 1.0f));
+	}
+}
