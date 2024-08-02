@@ -24,6 +24,7 @@ void Player::Initialize(Model* model, uint32_t textureHandle, const Vector3& pos
 		textureReticle, { 0,0 }, { 1,1,1,1 }, { 0.5, 0.5 });
 	sprite2Dreticle_->SetPosition(Vector2(WinApp::kWindowWidth/2, WinApp::kWindowHeight/2));
 	isShotCount_ = 0;
+	SetRadius(-15);
 }
 
 void Player::Update() {

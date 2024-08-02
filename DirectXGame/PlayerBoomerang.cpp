@@ -12,6 +12,7 @@ void PlayerBoomerang::Initialize(Model* model, uint32_t textureHandle, const Vec
 	moveDirection = {0, 0, 0};
 	moveEaseT = 50;
 	SetName("player");
+	SetRadius(-10);
 }
 
 void PlayerBoomerang::Update() {

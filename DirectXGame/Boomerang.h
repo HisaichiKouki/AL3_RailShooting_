@@ -39,6 +39,7 @@ public:
 	int GetPower() { return attackPower; }
 
 	void ReverceMove();
+	bool GetIsHold() { return isHold; }
 
 private:
 	WorldTransform worldTransform_;
@@ -61,6 +62,7 @@ private:
 	int attackPower;
 	int maxAttackPower=100;
 	bool preHit;
+	bool isHold;
 
 };
 

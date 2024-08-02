@@ -164,7 +164,7 @@ Vector3 Enemy::GetWorldPosition() {
 void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 
 	if (other->GetName() == "boomerang") {
-		if (!preHit) {
+		if (!preHit && !boomerang_->GetIsHold()) {
 			voiceHandle = audio_->PlayWave(soundHandle);//効果音
 			audio_->SetVolume(voiceHandle, 0.3f);
 

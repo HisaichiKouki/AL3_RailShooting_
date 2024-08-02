@@ -32,6 +32,7 @@ void Boomerang::Update() {
 void Boomerang::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
 
 void Boomerang::Move() {
+	isHold = false;
 	PlayerPosXY();
 
 	// スペースを押してる間は早く戻る
@@ -68,6 +69,7 @@ void Boomerang::Move() {
 }
 
 void Boomerang::Hold() {
+	isHold = true;
 	PlayerPosXY();
 	if (input->TriggerKey(DIK_SPACE)) {
 		phase = PhaseBoomerang::kMove;
