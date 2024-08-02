@@ -93,7 +93,7 @@ void GameScene::Initialize() {
 	playerBoom_ = new PlayerBoomerang;
 	playerModel_ = Model::CreateFromOBJ("player", true);
 	playerTex_ = TextureManager::Load("./Resources/addTexture/player.png");
-	playerPosition = {0, -10, 8.5f};
+	playerPosition = {0, -10, 6.5f};
 	playerBoom_->SetParent(&railCamera_->GetWorldTransform());
 	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
 

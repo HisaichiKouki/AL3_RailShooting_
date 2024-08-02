@@ -28,6 +28,8 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	SetRadius(10);
 	currentStopTime = 0;
 	currentHitPoint = setHitPoint;
+	initScale = worldTransform_.scale_;
+
 	// ApproachInitialize();
 }
 
@@ -109,9 +111,17 @@ void Enemy::LeaveMove() { worldTransform_.translation_ += velocity_; }
 
 void Enemy::Stoping() {
 	currentStopTime++;
+	Vector3 newScale=initScale;
+	newScale.x = initScale.x - OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
+	newScale.y = initScale.y + OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
+
+	worldTransform_.scale_ = newScale;
+
 	if (currentStopTime > stopTime) {
 
 		phase_ = Phase::Approach;
+		worldTransform_.scale_ = initScale;
+
 	}
 }
 

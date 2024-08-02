@@ -48,3 +48,15 @@ float InOutQuad(float t, float totaltime, float min, float max) {
 		return min + deltaValue * (-0.5f * (t * (t - 2.0f) - 1.0f));
 	}
 }
+
+float OutElasticAmplitude(float t, float totaltime, float amplitude, float period) {
+	if (t <= 0.0f)
+		return 0.0f;
+	if (t >= totaltime)
+		return 0.0f;
+
+	float s = period / (2.0f * float(3.141592f)) * sinf(1.0f);
+	t /= totaltime;
+
+	return amplitude * powf(2.0f, -10.0f * t) * sinf((t - s) * (2.0f * float(3.141592f)) / period);
+}

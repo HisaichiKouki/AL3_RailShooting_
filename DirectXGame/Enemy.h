@@ -8,6 +8,7 @@
 #include "TimedCall.h"
 
 #include "Collider.h"
+#include "Easing.h"
 class PlayerBoomerang;
 class GameScene;
 class Boomerang;
@@ -77,6 +78,7 @@ private:
 
 	int currentHitPoint;
 	int setHitPoint = 1000;
+	Vector3 initScale;
 
 
 
