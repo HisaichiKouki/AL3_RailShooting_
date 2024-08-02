@@ -7,7 +7,7 @@
 #include <iostream>
 #include <random>
 
-const int kParticleNum = 25;
+const int kParticleNum = 30;
 class ParticleClass {
 public:
 	ParticleClass();
@@ -17,6 +17,7 @@ public:
 	void Draw(ViewProjection& viewProjection);
 
 	Vector3 RandomValue(const Vector3& min,const Vector3& max);
+	bool GetIsDead() { return isDead; }
 
 private:
 	WorldTransform worldTransform_;
@@ -25,7 +26,10 @@ private:
 	ParticleChildClass* child[kParticleNum] = {nullptr};
 	Vector3 rotateMin = {1, 1, 1};
 	Vector3 rotateMax = {10, 10, 10};
-	Vector3 moveMin = {-9, -9, -5};
-	Vector3 moveMax = {9, 9, 0};
+	Vector3 moveMin = {-19, -19, -5};
+	Vector3 moveMax = {19, 19, 0};
+	
+	float currentTime;
+	bool isDead;
 
 };

@@ -21,11 +21,12 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	model_ = model;
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
+	worldTransform_.scale_ = {2.0f, 2.0f, 2.0f};
 	textureHandle_ = TextureManager::Load("sample.png");
 	// pFunc = &Enemy::ApproachMove;
 	// Fire();
 	isDead_ = false;
-	SetRadius(10);
+	SetRadius(20);
 	currentStopTime = 1;
 	currentHitPoint = setHitPoint;
 	initScale = worldTransform_.scale_;
@@ -119,8 +120,8 @@ void Enemy::Stoping() {
 	if (currentStopTime == 10) {
 	}
 	Vector3 newScale = initScale;
-	newScale.x = initScale.x - OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
-	newScale.y = initScale.y + OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
+	newScale.x = initScale.x - OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.5f, 0.15f);
+	newScale.y = initScale.y + OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.5f, 0.15f);
 
 	worldTransform_.scale_ = newScale;
 
@@ -179,6 +180,7 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 			if (currentHitPoint <= 0) {
 				if (!isDead_) {
 					gameScene_->AddKillCount();
+					gameScene_->AddEffect(worldTransform_.translation_);
 					isDead_ = true;
 				}
 			}

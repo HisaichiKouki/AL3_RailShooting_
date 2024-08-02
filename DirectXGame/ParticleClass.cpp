@@ -17,8 +17,11 @@ void ParticleClass::Init(Model* model, const Vector3& pos) {
 	model_ = model;
 
 	worldTransform_.UpdateMatrix();
+	currentTime = 0;
+	isDead = false;
 }
 void ParticleClass::Update() {
+	currentTime++;
 
 	for (int i = 0; i < kParticleNum; i++) {
 
@@ -39,6 +42,9 @@ void ParticleClass::Update() {
 				child[i] = nullptr;*/
 			}
 		}
+	}
+	if (currentTime > 60 * 4) {
+		isDead = true;
 	}
 }
 

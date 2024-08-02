@@ -7,7 +7,7 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	textureHandle_ = textureHandle;
 	worldTransform_.Initialize();
 	input = Input::GetInstance();
-	SetRadius(5);
+	SetRadius(1);
 	SetName("boomerang");
 	reverceCoolTime = 0;
 }

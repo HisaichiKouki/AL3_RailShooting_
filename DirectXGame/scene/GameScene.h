@@ -8,20 +8,20 @@
 #include "ViewProjection.h"
 #include "WorldTransform.h"
 
-#include "Player.h"
+#include "Boomerang.h"
+#include "CatmullRomSpline.h"
 #include "DebugCamera.h"
 #include "Enemy.h"
-#include "SkyDome.h"
-#include "RailCamera.h"
-#include "CatmullRomSpline.h"
-#include "PlayerBoomerang.h"
-#include "Boomerang.h"
-#include "Prediction.h"
-#include <ObjectColor.h>
-#include <sstream>
 #include "EnemyRotateClass.h"
 #include "NumberDrawClass.h"
 #include "ParticleClass.h"
+#include "Player.h"
+#include "PlayerBoomerang.h"
+#include "Prediction.h"
+#include "RailCamera.h"
+#include "SkyDome.h"
+#include <ObjectColor.h>
+#include <sstream>
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -60,18 +60,18 @@ public: // メンバ関数
 
 	void LoadEnemyPopDate();
 	void UpdateEnemyPopCommands();
-	void AddKillCount() { 
-		
+	void AddKillCount() {
+
 		killCount++;
 		killVoiceHandle = audio_->PlayWave(killSoundHandle);
 		audio_->SetVolume(killVoiceHandle, 1.0f);
 	}
+	void AddEffect(const Vector3& pos);
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
-	
 
 	/// <summary>
 	/// ゲームシーン用
@@ -95,43 +95,40 @@ private: // メンバ変数
 	Prediction* prediction = nullptr;
 	Model* predictionModel = nullptr;
 	uint32_t predictionTex;
-	ObjectColor *predictionColor;
+	ObjectColor* predictionColor;
 	bool isDebugCameraActive = false;
 	DebugCamera* debugCamera_ = nullptr;
 	RailCamera* railCamera_ = nullptr;
 
-
-	std::list<Enemy*>enemys_;
+	std::list<Enemy*> enemys_;
 	std::list<EnemyRotateClass*> enemyRotates;
-	//Enemy* enemy_ = nullptr;
+	// Enemy* enemy_ = nullptr;
 
 	Model* modelSkydome_ = nullptr;
 	SkyDome* skydome_ = nullptr;
-	
-	//CatmullRomSpline* catmullromSpline = nullptr;
 
-	std::list<EnemyBullet*>enemyBullets_;
+	// CatmullRomSpline* catmullromSpline = nullptr;
+
+	std::list<EnemyBullet*> enemyBullets_;
 
 	std::stringstream enemyPopCommands;
 	std::stringstream copyEnemyPopCommands;
-	
+
 	bool isEnemySpown_ = false;
 	int32_t isEnemySpownWaitTime_;
 
 	int32_t killCount;
 
-	NumberDrawClass *killNumTex=nullptr;
+	NumberDrawClass* killNumTex = nullptr;
 	uint32_t killSoundHandle = 0;
 	uint32_t killVoiceHandle = 0;
 
 	uint32_t bgmSH = 0;
 	uint32_t bgmVH = 0;
 
-	ParticleClass *particle=nullptr;
-
+	std::list<ParticleClass*> particles_;
 
 private:
-	
 	/// <summary>
 	/// コライダー２つの衝突判定と応答
 	/// </summary>

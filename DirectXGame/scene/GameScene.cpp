@@ -31,6 +31,9 @@ GameScene::~GameScene() {
 	for (EnemyRotateClass* pos : enemyRotates) {
 		delete pos;
 	}
+	for (ParticleClass* particle : particles_) {
+		delete particle;
+	}
 	/*for (auto itr = enemys_.begin(); itr != enemys_.end(); ++itr) {
 		delete* itr;
 	}*/
@@ -41,7 +44,7 @@ GameScene::~GameScene() {
 	delete predictionModel;
 	delete predictionColor;
 	delete killNumTex;
-	delete particle;
+	//delete particle;
 }
 
 void GameScene::Initialize() {
@@ -124,12 +127,18 @@ void GameScene::Initialize() {
 	bgmSH = audio_->LoadWave("./Resources/Sounds/BGM.mp3");
 	bgmVH = audio_->PlayWave(bgmSH, true, 0.1f);
 
-	particle = new ParticleClass;
-	particle->Init(model_, {0, 0, 0});
+	//particle = new ParticleClass;
+	//particle->Init(model_, {0, 0, 0});
 }
 
 void GameScene::Update() {
 	
+	if (input_->PushKey(DIK_SPACE)) {
+		//particle = new ParticleClass;
+		//particle->Init(model_, {0, 0, 0});
+
+	}
+
 	UpdateEnemyPopCommands();
 	enemys_.remove_if([](Enemy* enemy) {
 		if (enemy->IsDead()) {
@@ -147,7 +156,13 @@ void GameScene::Update() {
 		}
 		return false;
 		});
-
+	particles_.remove_if([](ParticleClass* particle) {
+		if (particle->GetIsDead()) {
+			delete particle;
+			return true;
+		}
+		return false;
+	});
 
 	railCamera_->Update();
 
@@ -155,7 +170,7 @@ void GameScene::Update() {
 	//player_->Update();
 	playerBoom_->Update();
 	boomerang->Update();
-	particle->Update();
+	
 	prediction->SetWorldPos(playerBoom_->GetWorldPosition());
 	/*if (enemy_)
 	{
@@ -174,6 +189,9 @@ void GameScene::Update() {
 	for (EnemyBullet* bullet : enemyBullets_)
 	{
 		bullet->Update();
+	}
+	for (auto* particle : particles_) {
+		particle->Update();
 	}
 	CheckAllCollisions();
 #ifdef _DEBUG
@@ -244,7 +262,10 @@ void GameScene::Draw() {
 	{
 		bullet->Draw(viewProjection_);
 	}
-	particle->Draw(viewProjection_);
+
+	for (auto* particle : particles_) {
+		particle->Draw(viewProjection_);
+	}
 	//catmullromSpline->Draw();
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
@@ -455,6 +476,12 @@ void GameScene::UpdateEnemyPopCommands()
 			break;
 		}
 	}
+}
+
+void GameScene::AddEffect(const Vector3& pos) {
+	ParticleClass* particle = new ParticleClass;
+	particle->Init(model_, pos);
+	particles_.push_back(particle);
 }
 
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB)
