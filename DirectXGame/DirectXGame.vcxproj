@@ -120,6 +120,8 @@
     <ClCompile Include="EnemyRotateClass.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NumberDrawClass.cpp" />
+    <ClCompile Include="ParticleChildClass.cpp" />
+    <ClCompile Include="ParticleClass.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBoomerang.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
@@ -168,6 +170,8 @@
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
     <ClInclude Include="NumberDrawClass.h" />
+    <ClInclude Include="ParticleChildClass.h" />
+    <ClInclude Include="ParticleClass.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBoomerang.h" />
     <ClInclude Include="PlayerBullet.h" />

@@ -21,6 +21,7 @@
 #include <sstream>
 #include "EnemyRotateClass.h"
 #include "NumberDrawClass.h"
+#include "ParticleClass.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -125,6 +126,9 @@ private: // メンバ変数
 
 	uint32_t bgmSH = 0;
 	uint32_t bgmVH = 0;
+
+	ParticleClass *particle=nullptr;
+
 
 private:
 	

@@ -41,6 +41,7 @@ GameScene::~GameScene() {
 	delete predictionModel;
 	delete predictionColor;
 	delete killNumTex;
+	delete particle;
 }
 
 void GameScene::Initialize() {
@@ -122,6 +123,9 @@ void GameScene::Initialize() {
 	killSoundHandle = audio_->LoadWave("./Resources/Sounds/Kill.wav");
 	bgmSH = audio_->LoadWave("./Resources/Sounds/BGM.mp3");
 	bgmVH = audio_->PlayWave(bgmSH, true, 0.1f);
+
+	particle = new ParticleClass;
+	particle->Init(model_, {0, 0, 0});
 }
 
 void GameScene::Update() {
@@ -151,6 +155,7 @@ void GameScene::Update() {
 	//player_->Update();
 	playerBoom_->Update();
 	boomerang->Update();
+	particle->Update();
 	prediction->SetWorldPos(playerBoom_->GetWorldPosition());
 	/*if (enemy_)
 	{
@@ -239,6 +244,7 @@ void GameScene::Draw() {
 	{
 		bullet->Draw(viewProjection_);
 	}
+	particle->Draw(viewProjection_);
 	//catmullromSpline->Draw();
 	// 3Dオブジェクト描画後処理
 	Model::PostDraw();
