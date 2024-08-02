@@ -40,6 +40,7 @@ GameScene::~GameScene() {
 	delete prediction;
 	delete predictionModel;
 	delete predictionColor;
+	delete killNumTex;
 }
 
 void GameScene::Initialize() {
@@ -114,7 +115,8 @@ void GameScene::Initialize() {
 	predictionColor->TransferMatrix();
 	//predictionColor.Initialize();
 	//predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
-
+	killCount = 0;
+	killNumTex = new NumberDrawClass;
 }
 
 void GameScene::Update() {
@@ -122,6 +124,7 @@ void GameScene::Update() {
 	UpdateEnemyPopCommands();
 	enemys_.remove_if([](Enemy* enemy) {
 		if (enemy->IsDead()) {
+			
 			delete enemy;
 			return true;
 		}
@@ -184,9 +187,7 @@ void GameScene::Update() {
 	}
 	
 
-	
-
-	
+ImGui::Text("KillCount=%d", killCount);
 }
 
 void GameScene::Draw() {
@@ -247,7 +248,7 @@ void GameScene::Draw() {
 	/// </summary>
 
 	//player_->DrawUI();
-
+	killNumTex->Draw({100, 100});
 	// スプライト描画後処理
 	Sprite::PostDraw();
 

@@ -152,7 +152,11 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 		
 		currentHitPoint -= boomerang_->GetPower();
 		if (currentHitPoint<=0) {
-			isDead_ = true;
+			if (!isDead_) {
+				gameScene_->AddKillCount();
+				isDead_ = true;
+			}
+			
 		}
 	}
 

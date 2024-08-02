@@ -20,6 +20,7 @@
 #include <ObjectColor.h>
 #include <sstream>
 #include "EnemyRotateClass.h"
+#include "NumberDrawClass.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -58,6 +59,7 @@ public: // メンバ関数
 
 	void LoadEnemyPopDate();
 	void UpdateEnemyPopCommands();
+	void AddKillCount() { killCount++; }
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -109,6 +111,11 @@ private: // メンバ変数
 	
 	bool isEnemySpown_ = false;
 	int32_t isEnemySpownWaitTime_;
+
+	int32_t killCount;
+
+	NumberDrawClass *killNumTex=nullptr;
+
 private:
 	
 	/// <summary>

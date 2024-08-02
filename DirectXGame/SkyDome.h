@@ -16,7 +16,7 @@ private:
 	Model* model_ = nullptr;
 
 	WorldTransform worldTransform2_;
-	float moveSpeed= 0.1f;
+	float moveSpeed= 0.5f;
 	
 };
 

@@ -119,6 +119,7 @@
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyRotateClass.cpp" />
     <ClCompile Include="main.cpp" />
+    <ClCompile Include="NumberDrawClass.cpp" />
     <ClCompile Include="Player.cpp" />
     <ClCompile Include="PlayerBoomerang.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
@@ -166,6 +167,7 @@
     <ClInclude Include="math\Vector2.h" />
     <ClInclude Include="math\Vector3.h" />
     <ClInclude Include="math\Vector4.h" />
+    <ClInclude Include="NumberDrawClass.h" />
     <ClInclude Include="Player.h" />
     <ClInclude Include="PlayerBoomerang.h" />
     <ClInclude Include="PlayerBullet.h" />
