@@ -117,6 +117,11 @@ void GameScene::Initialize() {
 	//predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
 	killCount = 0;
 	killNumTex = new NumberDrawClass;
+
+	audio_->GetInstance();
+	killSoundHandle = audio_->LoadWave("./Resources/Sounds/Kill.wav");
+	bgmSH = audio_->LoadWave("./Resources/Sounds/BGM.mp3");
+	bgmVH = audio_->PlayWave(bgmSH, true, 0.1f);
 }
 
 void GameScene::Update() {

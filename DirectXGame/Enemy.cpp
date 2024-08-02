@@ -31,6 +31,9 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	initScale = worldTransform_.scale_;
 	audio_ = Audio::GetInstance();
 	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
+
+
+
 	preHit = false;
 	// ApproachInitialize();
 }

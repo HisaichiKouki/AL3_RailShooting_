@@ -2,7 +2,7 @@
 #include <TextureManager.h>
 #include <string.h>
 #include <Sprite.h>
-
+#include <Audio.h>
 const int numDigits = 5;
 
 class NumberDrawClass {
@@ -25,6 +25,7 @@ private:
 	float width;
 
 	int currentNum;
+	
 
 	
 

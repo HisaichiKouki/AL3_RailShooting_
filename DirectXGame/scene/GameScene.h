@@ -59,7 +59,12 @@ public: // メンバ関数
 
 	void LoadEnemyPopDate();
 	void UpdateEnemyPopCommands();
-	void AddKillCount() { killCount++; }
+	void AddKillCount() { 
+		
+		killCount++;
+		killVoiceHandle = audio_->PlayWave(killSoundHandle);
+		audio_->SetVolume(killVoiceHandle, 1.0f);
+	}
 
 private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
@@ -115,7 +120,11 @@ private: // メンバ変数
 	int32_t killCount;
 
 	NumberDrawClass *killNumTex=nullptr;
-	
+	uint32_t killSoundHandle = 0;
+	uint32_t killVoiceHandle = 0;
+
+	uint32_t bgmSH = 0;
+	uint32_t bgmVH = 0;
 
 private:
 	

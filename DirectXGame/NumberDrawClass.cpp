@@ -22,11 +22,12 @@ void NumberDrawClass::Init() {
 		drawNum[i] = (float)i;
 
 	}
-
 }
 
 void NumberDrawClass::Draw(const Vector2& pos, int32_t num) {
 	currentNum = num;
+	
+
 	for (int i = 0; i < numDigits; i++) {
 		sprite[i]->SetSize({0, 0});
 

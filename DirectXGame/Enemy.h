@@ -85,6 +85,7 @@ private:
 	uint32_t soundHandle = 0;
 	uint32_t voiceHandle = 0;
 
+	
 	bool preHit;
 
 
