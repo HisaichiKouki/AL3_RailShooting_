@@ -9,6 +9,7 @@
 
 #include "Collider.h"
 #include "Easing.h"
+#include <Audio.h>
 class PlayerBoomerang;
 class GameScene;
 class Boomerang;
@@ -40,6 +41,7 @@ public:
 	Vector3 GetWorldPosition() override;
 
 	void OnCollision([[maybe_unused]] Collider* other) override;
+	void ExitCollision([[maybe_unused]] Collider* other) override;
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 	void SetGameScene(GameScene* gameScene) { gameScene_ = gameScene; }
@@ -79,7 +81,11 @@ private:
 	int currentHitPoint;
 	int setHitPoint = 1000;
 	Vector3 initScale;
+	Audio* audio_ = nullptr;
+	uint32_t soundHandle = 0;
+	uint32_t voiceHandle = 0;
 
+	bool preHit;
 
 
 public:

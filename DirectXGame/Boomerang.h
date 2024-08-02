@@ -33,8 +33,12 @@ public:
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 
 	void OnCollision([[maybe_unused]] Collider* other) override;
+	void ExitCollision([[maybe_unused]] Collider* other) override;
+
 	Vector3 GetWorldPosition() override;
 	int GetPower() { return attackPower; }
+
+	void ReverceMove();
 
 private:
 	WorldTransform worldTransform_;
@@ -53,9 +57,10 @@ private:
 	float boundPower = 0.3f;//加算してバウンドする
 	float moveDire;
 	float boundCoolTime;
-
+	float reverceCoolTime;//跳ね返りのクールタイム
 	int attackPower;
 	int maxAttackPower=100;
+	bool preHit;
 
 };
 

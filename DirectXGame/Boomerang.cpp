@@ -9,13 +9,17 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	input = Input::GetInstance();
 	SetRadius(5);
 	SetName("boomerang");
+	reverceCoolTime = 0;
 }
 
 void Boomerang::Update() {
-
+	
 	// worldTransform_.rotation_.z = player->GetWorldTransform().rotation_.z;
 	if (boundCoolTime > 0) {
 		boundCoolTime--;
+	}
+	if (reverceCoolTime > 0) {
+		reverceCoolTime--;
 	}
 	(this->*spFuncTable[static_cast<size_t>(phase)])();
 #ifdef _DEBUG
@@ -80,15 +84,20 @@ void Boomerang::PlayerPosXY() {
 
 void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 	// バウンドする
-
-	if (boundCoolTime <= 0) {
+	if (reverceCoolTime <= 0) {
+		preHit = true;
 		// 進行方向の力を代入
 		velocity.z += boundPower * moveDire;
 		// 跳ね返るので力の向きを反転
 		velocity.z *= -1;
-		boundCoolTime = 8.0f; // 一度ぶつかったらクールタイム
+		boundCoolTime = 7.0f;   // すぐに戻せないようにするためのクールタイム
+		reverceCoolTime = 5.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
 	}
+	
+	
 }
+
+void Boomerang::ExitCollision([[maybe_unused]] Collider* other) { preHit = false; }
 
 Vector3 Boomerang::GetWorldPosition() {
 	Vector3 worldPos;
@@ -96,6 +105,11 @@ Vector3 Boomerang::GetWorldPosition() {
 	worldPos.y = worldTransform_.matWorld_.m[3][1];
 	worldPos.z = worldTransform_.matWorld_.m[3][2];
 	return worldPos;
+}
+
+//バウンドする。敵がヒットした時に呼び出す
+void Boomerang::ReverceMove() {
+	
 }
 
 void (Boomerang::*Boomerang::spFuncTable[])() = {&Boomerang::Hold, &Boomerang::Move};

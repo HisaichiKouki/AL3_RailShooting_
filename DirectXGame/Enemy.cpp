@@ -1,7 +1,7 @@
 #include "Enemy.h"
+#include "Boomerang.h"
 #include "GameScene.h"
 #include "PlayerBoomerang.h"
-#include "Boomerang.h"
 
 Enemy::~Enemy() {
 
@@ -26,15 +26,16 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	// Fire();
 	isDead_ = false;
 	SetRadius(10);
-	currentStopTime = 0;
+	currentStopTime = 1;
 	currentHitPoint = setHitPoint;
 	initScale = worldTransform_.scale_;
-
+	audio_ = Audio::GetInstance();
+	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
+	preHit = false;
 	// ApproachInitialize();
 }
 
 void Enemy::Update() {
-
 	(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 	// worldTransform_.translation_ = Add(worldTransform_.translation_,velocity_);
@@ -44,10 +45,11 @@ void Enemy::Update() {
 	//(this->*pFunc)();
 
 #ifdef _DEBUG
-	//ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
-	//ImGui::Text("currentStopTime=%d", currentStopTime);
+	// ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
+	// ImGui::Text("currentStopTime=%d", currentStopTime);
 	ImGui::Text("currentHitPoint=%d", currentHitPoint);
-	ImGui::Text("pos x=%f y=%f z=%f", GetWorldPosition().x,GetWorldPosition().y,GetWorldPosition().z);
+	ImGui::Text("preHit=%d", preHit);
+	// ImGui::Text("pos x=%f y=%f z=%f", GetWorldPosition().x,GetWorldPosition().y,GetWorldPosition().z);
 
 #endif // _DEBUG
 }
@@ -89,16 +91,16 @@ void Enemy::ApproachMove() {
 	    isFireCoolTime = kFireCoolTime;
 	}*/
 
-	//Vector3 toPlayer = (player_->GetWorldPosition() - worldTransform_.translation_);
-	//toPlayer = Normalize(toPlayer);
-	//velocity_ = Normalize(velocity_);
+	// Vector3 toPlayer = (player_->GetWorldPosition() - worldTransform_.translation_);
+	// toPlayer = Normalize(toPlayer);
+	// velocity_ = Normalize(velocity_);
 
-	//velocity_ = SLerp(velocity_, toPlayer, homingPower) * kMoveSpeed;
+	// velocity_ = SLerp(velocity_, toPlayer, homingPower) * kMoveSpeed;
 	//// 弾の回転
-	//float vecLength = sqrtf(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
-	//worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
+	// float vecLength = sqrtf(velocity_.x * velocity_.x + velocity_.z * velocity_.z);
+	// worldTransform_.rotation_.y = std::atan2(velocity_.x, velocity_.z);
 
-	//worldTransform_.rotation_.x = std::atan2(-velocity_.y, vecLength);
+	// worldTransform_.rotation_.x = std::atan2(-velocity_.y, vecLength);
 
 	worldTransform_.translation_ += approachVelocity_;
 	worldTransform_.UpdateMatrix();
@@ -111,7 +113,9 @@ void Enemy::LeaveMove() { worldTransform_.translation_ += velocity_; }
 
 void Enemy::Stoping() {
 	currentStopTime++;
-	Vector3 newScale=initScale;
+	if (currentStopTime == 10) {
+	}
+	Vector3 newScale = initScale;
 	newScale.x = initScale.x - OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
 	newScale.y = initScale.y + OutElasticAmplitude((float)currentStopTime, (float)stopTime, 1.3f, 0.15f);
 
@@ -121,7 +125,6 @@ void Enemy::Stoping() {
 
 		phase_ = Phase::Approach;
 		worldTransform_.scale_ = initScale;
-
 	}
 }
 
@@ -157,23 +160,38 @@ Vector3 Enemy::GetWorldPosition() {
 void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 
 	if (other->GetName() == "boomerang") {
-		phase_ = Phase::Stoppage;
-		currentStopTime = 0;
-		
-		currentHitPoint -= boomerang_->GetPower();
-		if (currentHitPoint<=0) {
-			if (!isDead_) {
-				gameScene_->AddKillCount();
-				isDead_ = true;
+		if (!preHit) {
+			voiceHandle = audio_->PlayWave(soundHandle);//効果音
+			audio_->SetVolume(voiceHandle, 0.3f);
+
+
+			phase_ = Phase::Stoppage;//状態変化
+			preHit = true;
+
+
+			boomerang_->ReverceMove();//ブーメランの進行方向を変える
+			currentStopTime = 0;//停止時間初期化
+
+			currentHitPoint -= boomerang_->GetPower();
+			if (currentHitPoint <= 0) {
+				if (!isDead_) {
+					gameScene_->AddKillCount();
+					isDead_ = true;
+				}
 			}
-			
 		}
 	}
 
-	 if (other->GetName() == "player") {
+	if (other->GetName() == "player") {
 		isDead_ = true;
 	}
-	
+}
+
+void Enemy::ExitCollision(Collider* other) {
+	if (other->GetName() == "boomerang") {
+
+		preHit = false;
+	}
 }
 
 void (Enemy::*Enemy::spFuncTable[])() = {&Enemy::ApproachMove, &Enemy::LeaveMove, &Enemy::Stoping};

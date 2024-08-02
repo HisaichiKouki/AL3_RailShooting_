@@ -115,6 +115,7 @@ private: // メンバ変数
 	int32_t killCount;
 
 	NumberDrawClass *killNumTex=nullptr;
+	
 
 private:
 	

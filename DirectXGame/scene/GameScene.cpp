@@ -455,8 +455,13 @@ void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB)
 
 	if (distance<=colliderA->GetRadius()+ colliderB->GetRadius())
 	{
+		
 		colliderA->OnCollision(colliderB);
 		colliderB->OnCollision(colliderA);
+
+	} else {
+		colliderA->ExitCollision(colliderB);
+		colliderB->ExitCollision(colliderA);
 	}
 }
 
