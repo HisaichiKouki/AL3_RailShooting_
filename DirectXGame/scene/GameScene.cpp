@@ -246,9 +246,9 @@ void GameScene::Draw() {
 	/// <summary>
 	/// ここに前景スプライトの描画処理を追加できる
 	/// </summary>
-
+	killCount = 12;
 	//player_->DrawUI();
-	killNumTex->Draw({100, 100});
+	killNumTex->Draw({100, 100},killCount);
 	// スプライト描画後処理
 	Sprite::PostDraw();
 
