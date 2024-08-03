@@ -93,7 +93,7 @@ void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 		// 跳ね返るので力の向きを反転
 		velocity.z *= -1;
 		boundCoolTime = 4.0f;   // すぐに戻せないようにするためのクールタイム
-		reverceCoolTime = 5.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
+		reverceCoolTime = 10.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
 	}
 	
 	

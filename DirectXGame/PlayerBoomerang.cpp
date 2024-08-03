@@ -1,6 +1,9 @@
 #include "PlayerBoomerang.h"
 
-PlayerBoomerang::~PlayerBoomerang() {}
+PlayerBoomerang::~PlayerBoomerang() {
+	delete objectColor;
+	delete barriarModel;
+}
 
 void PlayerBoomerang::Initialize(Model* model, uint32_t textureHandle, const Vector3& pos) {
 	assert(model);
@@ -13,14 +16,37 @@ void PlayerBoomerang::Initialize(Model* model, uint32_t textureHandle, const Vec
 	moveEaseT = 50;
 	SetName("player");
 	SetRadius(-10);
+	hitPoint = initHitpoint;
+	objectColor = new ObjectColor;
+	objectColor->Initialize();
+	objectColor->SetColor({0.1f, 0.4f, 1.0f, 0.4f});
+	objectColor->TransferMatrix();
+	barriarModel = Model::CreateSphere();
+	barriarTransform.Initialize();
+	barriarTransform.scale_ = {2, 2, 2};
+	barriarTex = TextureManager::Load("white1x1.png");
 }
 
 void PlayerBoomerang::Update() {
+	barriar--;
+	if (barriar > 0) {
+		barriarTransform.scale_ = {3, 3, 3};
+
+	} else {
+		barriarTransform.scale_ = {0, 0, 0};
+
+	}
 	Move();
 	worldTransform_.UpdateMatrix();
+
+	barriarTransform.translation_ = GetWorldPosition();
+	barriarTransform.UpdateMatrix();
 }
 
-void PlayerBoomerang::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
+void PlayerBoomerang::Draw(ViewProjection& viewProjection) {
+	model_->Draw(worldTransform_, viewProjection, textureHandle_);
+	barriarModel->Draw(barriarTransform, viewProjection, barriarTex, objectColor);
+}
 
 void PlayerBoomerang::Attack() {}
 
@@ -107,10 +133,10 @@ void PlayerBoomerang::Move() {
 #ifdef _DEBUG
 
 	ImGui::Begin("PlayerMove");
-
+	ImGui::Text("HitPoint=%d", hitPoint);
 	ImGui::Text("moveEaseT=%f,fastEaseT=%d", moveEaseT, fastEaseT);
 	ImGui::End();
-	#endif
+#endif
 }
 
 Vector3 PlayerBoomerang::GetWorldPosition() {
@@ -121,6 +147,11 @@ Vector3 PlayerBoomerang::GetWorldPosition() {
 	return worldPos;
 }
 
-void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) { camera->ShakeStart();
+void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) {
+	camera->ShakeStart();
 
+	if (barriar <= 0) {
+		hitPoint--;
+		barriar = 90;
+	}
 }

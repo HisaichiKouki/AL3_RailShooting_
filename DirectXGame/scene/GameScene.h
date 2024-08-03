@@ -72,6 +72,9 @@ public: // メンバ関数
 	bool GetClear() { return gameclear; }
 	bool GetOver() { return gameover; }
 
+	//ゲームクリア、ゲームオーバーどちらかを判定する
+	void GameJudgement();
+
 	private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -136,7 +139,11 @@ public: // メンバ関数
 
 	bool gameclear;
 	bool gameover;
-
+	bool change2Clear;
+	bool change2over;
+	bool isChange;
+	int gameTimer;
+	float changeTime;
  private:
 	/// <summary>
 	/// コライダー２つの衝突判定と応答

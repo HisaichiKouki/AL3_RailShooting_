@@ -16,7 +16,8 @@
 #include "Vector3AndMatrix4x4.h"
 #include "Easing.h"
 #include "RailCamera.h"
-
+#include <ObjectColor.h>
+#include <TextureManager.h>
 class PlayerBoomerang :public Collider
 {
 public:
@@ -36,8 +37,9 @@ public:
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 	void SetCamera(RailCamera* setCamera) { camera = setCamera; }
+	int GetHitPoint() { return hitPoint; }
 
-private:
+	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
@@ -53,5 +55,12 @@ private:
 	float moveEaseT;
 	float fastEaseT=15;//100-fastEaseTしてfastEaseTのフレーム分スキップする
 	RailCamera* camera = nullptr;
+	ObjectColor* objectColor=nullptr;
+	Model* barriarModel=nullptr;
+	uint32_t barriarTex = 0u;
+	WorldTransform barriarTransform;
+	int initHitpoint=3;
+	int hitPoint;
+	int barriar;
 };
 

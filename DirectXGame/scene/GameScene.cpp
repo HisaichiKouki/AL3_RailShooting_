@@ -133,10 +133,11 @@ void GameScene::Initialize() {
 	// particle->Init(model_, {0, 0, 0});
 	gameclear = false;
 	gameover = false;
+	gameTimer = 0;
 }
 
 void GameScene::Update() {
-
+	gameTimer++;
 	if (input_->PushKey(DIK_SPACE)) {
 		// particle = new ParticleClass;
 		// particle->Init(model_, {0, 0, 0});
@@ -180,7 +181,7 @@ void GameScene::Update() {
 		return false;
 	});
 	railCamera_->Update();
-	
+
 	skydome_->Update();
 	// player_->Update();
 	playerBoom_->Update();
@@ -230,8 +231,10 @@ void GameScene::Update() {
 
 #ifdef _DEBUG
 
-	ImGui::Text("KillCount=%d", killCount); 
+	ImGui::Text("KillCount=%d", killCount);
 #endif // _DEBUG
+
+	GameJudgement();
 }
 
 void GameScene::Draw() {
@@ -495,6 +498,30 @@ void GameScene::AddEffect(const Vector3& pos) {
 	ParticleClass* particle = new ParticleClass;
 	particle->Init(model_, pos);
 	particles_.push_back(particle);
+}
+
+void GameScene::GameJudgement() {
+	if (!isChange) {
+		if (killCount <= 0) {
+			change2Clear = true;
+			isChange = true;
+		} else if (playerBoom_->GetHitPoint() <= 0) {
+			change2over = true;
+			isChange = true;
+		}
+
+	} else {
+		changeTime++;
+		if (changeTime > 60) {
+
+			if (change2Clear) {
+				gameclear = true;
+			}
+			if (change2over) {
+				gameover = true;
+			}
+		}
+	}
 }
 
 void GameScene::CheckCollisionPair(Collider* colliderA, Collider* colliderB) {

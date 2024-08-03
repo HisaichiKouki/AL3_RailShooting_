@@ -18,7 +18,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	PrimitiveDrawer* primitiveDrawer = nullptr;
 	GameScene* gameScene = nullptr;
 	bool gameIsTitle = true;
-	bool gameIsStart=false;
+	bool gameIsStart = false;
 	bool gameIsClear = false;
 	bool gameIsOver = false;
 
@@ -79,8 +79,15 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// ゲームシーンの毎フレーム処理
 
 		if (gameIsTitle) {
-			//タイトル
-			if (input->PushKey(DIK_SPACE)) {
+			// タイトル
+#ifdef _DEBUG
+			ImGui::Begin("GameState");
+			ImGui::Text("Title");
+
+			ImGui::End();
+#endif // _DEBUG		
+
+			if (input->TriggerKey(DIK_SPACE)) {
 				gameIsStart = true;
 				gameIsTitle = false;
 				delete gameScene;
@@ -97,22 +104,34 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			} else if (gameScene->GetOver()) {
 				gameIsOver = true;
 				gameIsStart = false;
-			} 
+			}
 
 		} else if (gameIsClear) {
 
-			if (input->PushKey(DIK_SPACE)) {
+#ifdef _DEBUG
+			ImGui::Begin("GameState");
+			ImGui::Text("GameClear");
+
+			ImGui::End();
+#endif // _DEBUG
+
+			if (input->TriggerKey(DIK_SPACE)) {
 				gameIsClear = false;
 				gameIsTitle = true;
 			}
 		} else if (gameIsOver) {
-			if (input->PushKey(DIK_SPACE)) {
+#ifdef _DEBUG
+			ImGui::Begin("GameState");
+			ImGui::Text("GameOver");
+
+			ImGui::End();
+#endif // _DEBUG		
+			if (input->TriggerKey(DIK_SPACE)) {
 				gameIsOver = false;
 				gameIsTitle = true;
 			}
 		}
 
-		
 		// 軸表示の更新
 		axisIndicator->Update();
 		// ImGui受付終了
@@ -122,16 +141,14 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		dxCommon->PreDraw();
 		if (gameIsTitle) {
 			// タイトル
-			
+
 		} else if (gameIsStart) {
-			gameScene->Draw();		
+			gameScene->Draw();
 		} else if (gameIsClear) {
 
-			
 		} else if (gameIsOver) {
-			
 		}
-		
+
 		// 軸表示の描画
 		axisIndicator->Draw();
 		// プリミティブ描画のリセット
