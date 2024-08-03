@@ -21,7 +21,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	bool gameIsStart = false;
 	bool gameIsClear = false;
 	bool gameIsOver = false;
-	
+
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
 	win->CreateGameWindow();
@@ -68,6 +68,19 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	gameScene = new GameScene();
 	gameScene->Initialize();
 
+	uint32_t fadeTexHandle = TextureManager::Load("./Resources/addTexture/black.png");
+	Sprite* fadeTex = Sprite::Create(fadeTexHandle, {0, 0});
+
+	uint32_t titleTH = TextureManager::Load("./Resources/addTexture/title.png");
+	Sprite* title = Sprite::Create(titleTH, {0, 0});
+	uint32_t clearTH = TextureManager::Load("./Resources/addTexture/clear.png");
+	Sprite* clear = Sprite::Create(clearTH, {0, 0});
+	uint32_t overTH = TextureManager::Load("./Resources/addTexture/over.png");
+	Sprite* over = Sprite::Create(overTH, {0, 0});
+	float easeT = 30;
+	float maxEase = 30;
+	bool change = false;
+	bool restart = false;
 	// メインループ
 	while (true) {
 		// メッセージ処理
@@ -82,35 +95,90 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 		// ゲームシーンの毎フレーム処理
 
 		if (gameIsTitle) {
+
+			if (!change) {
+				if (easeT > 0) {
+					easeT--;
+				}
+
+			} else {
+				if (easeT < maxEase) {
+					easeT++;
+				} else {
+					easeT = maxEase;
+					gameIsStart = true;
+					gameIsTitle = false;
+					delete gameScene;
+					gameScene = nullptr;
+					gameScene = new GameScene();
+					gameScene->Initialize();
+					change = false;
+				}
+			}
+
 			// タイトル
 #ifdef _DEBUG
 			ImGui::Begin("GameState");
 			ImGui::Text("Title");
 
 			ImGui::End();
-#endif // _DEBUG		
+#endif // _DEBUG
 
 			if (input->TriggerKey(DIK_SPACE)) {
-				gameIsStart = true;
-				gameIsTitle = false;
-				delete gameScene;
-				gameScene = nullptr;
-				gameScene = new GameScene();
-				gameScene->Initialize();
+				change = true;
 			}
-		} else if (gameIsStart) {
+		}
+
+		// ゲーム
+		else if (gameIsStart) {
+			if (!change) {
+				if (easeT > 0) {
+					easeT--;
+					restart = false;
+				}
+			}
+
 			gameScene->Update();
 
 			if (gameScene->GetClear()) {
-				gameIsClear = true;
-				gameIsStart = false;
+				change = true;
+				if (easeT < maxEase) {
+					easeT++;
+				} else {
+					easeT = maxEase;
+					change = false;
+					gameIsClear = true;
+					gameIsStart = false;
+				}
+
 			} else if (gameScene->GetOver()) {
-				gameIsOver = true;
-				gameIsStart = false;
+				change = true;
+				if (easeT < maxEase) {
+					easeT++;
+				} else {
+					easeT = maxEase;
+					change = false;
+					gameIsOver = true;
+					gameIsStart = false;
+				}
 			}
 
+			// クリア画面
 		} else if (gameIsClear) {
-
+			if (!change) {
+				if (easeT > 0) {
+					easeT--;
+				}
+			} else {
+				if (easeT < maxEase) {
+					easeT++;
+				} else {
+					easeT = maxEase;
+					change = false;
+					gameIsClear = false;
+					gameIsTitle = true;
+				}
+			}
 #ifdef _DEBUG
 			ImGui::Begin("GameState");
 			ImGui::Text("GameClear");
@@ -119,25 +187,48 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 #endif // _DEBUG
 
 			if (input->TriggerKey(DIK_SPACE)) {
-				gameIsClear = false;
-				gameIsTitle = true;
+				change = true;
 			}
+
+			// ゲームオーバー画面
 		} else if (gameIsOver) {
+			if (!change) {
+				if (easeT > 0) {
+					easeT--;
+				}
+			} else {
+				if (easeT < maxEase) {
+					easeT++;
+				} else {
+					easeT = maxEase;
+					change = false;
+					if (restart) {
+						gameIsOver = false;
+						gameIsStart = true;
+						gameScene->SetHitPoint(3);
+					} else {
+						gameIsOver = false;
+						gameIsTitle = true;
+					}
+				}
+			}
 #ifdef _DEBUG
 			ImGui::Begin("GameState");
 			ImGui::Text("GameOver");
 
 			ImGui::End();
-#endif // _DEBUG		
+#endif // _DEBUG
 			if (input->TriggerKey(DIK_SPACE)) {
-				gameIsOver = false;
-				gameIsTitle = true;
+				restart = false;
+				change = true;
+
 			} else if (input->TriggerKey(DIK_R)) {
-				gameIsOver = false;
-				gameIsStart = true;
-				gameScene->SetHitPoint(3);
+				restart = true;
+				change = true;
 			}
 		}
+
+		fadeTex->SetColor({1, 1, 1, easeT / maxEase});
 
 		// 軸表示の更新
 		axisIndicator->Update();
@@ -146,15 +237,24 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 		// 描画開始
 		dxCommon->PreDraw();
+		if (gameIsStart) {
+			gameScene->Draw();
+		}
+		
+
+		Sprite::PreDraw(dxCommon->GetCommandList());
 		if (gameIsTitle) {
 			// タイトル
-
-		} else if (gameIsStart) {
-			gameScene->Draw();
+			title->Draw();
 		} else if (gameIsClear) {
-
+			// クリア画面
+			clear->Draw();
 		} else if (gameIsOver) {
+			// ゲームオーバー
+			over->Draw();
 		}
+		fadeTex->Draw();
+		Sprite::PostDraw();
 
 		// 軸表示の描画
 		axisIndicator->Draw();
@@ -168,6 +268,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 
 	// 各種解放
 	delete gameScene;
+	delete fadeTex;
+	delete title;
+	delete clear;
+	delete over;
 	// 3Dモデル解放
 	Model::StaticFinalize();
 	audio->Finalize();

@@ -143,4 +143,10 @@ void Boomerang::ReverceMove() {
 	
 }
 
+void Boomerang::StopSE() {
+	if (vh != 0) {
+		audio_->StopWave(vh);
+	}
+}
+
 void (Boomerang::*Boomerang::spFuncTable[])() = {&Boomerang::Hold, &Boomerang::Move};

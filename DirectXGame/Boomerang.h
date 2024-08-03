@@ -42,6 +42,7 @@ public:
 	bool GetIsHold() { return isHold; }
 
 	void SetTargetEnemy(Enemy* set) { targetEenemy = set; }
+	void StopSE();
 
 private:
 	Enemy* targetEenemy = nullptr;

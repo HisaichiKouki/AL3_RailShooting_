@@ -120,7 +120,7 @@ void GameScene::Initialize() {
 	predictionColor->TransferMatrix();
 	// predictionColor.Initialize();
 	// predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
-	killCount = 50;
+	killCount = 1;
 	killNumTex = new NumberDrawClass;
 	killNumTex->SetCamera(&railCamera_->GetWorldTransform());
 	audio_->GetInstance();
@@ -515,6 +515,7 @@ void GameScene::GameJudgement() {
 		}
 
 	} else {
+		boomerang->StopSE();
 		changeTime++;
 		if (changeTime > 90) {
 
