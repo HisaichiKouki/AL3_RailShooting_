@@ -131,6 +131,8 @@ void GameScene::Initialize() {
 	gauge->SetPlayer(boomerang);
 	// particle = new ParticleClass;
 	// particle->Init(model_, {0, 0, 0});
+	gameclear = false;
+	gameover = false;
 }
 
 void GameScene::Update() {
@@ -178,7 +180,7 @@ void GameScene::Update() {
 		return false;
 	});
 	railCamera_->Update();
-
+	
 	skydome_->Update();
 	// player_->Update();
 	playerBoom_->Update();

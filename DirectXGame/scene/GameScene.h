@@ -69,8 +69,10 @@ public: // メンバ関数
 		audio_->SetVolume(killVoiceHandle, 1.0f);
 	}
 	void AddEffect(const Vector3& pos);
+	bool GetClear() { return gameclear; }
+	bool GetOver() { return gameover; }
 
-private: // メンバ変数
+	private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
 	Audio* audio_ = nullptr;
@@ -131,6 +133,9 @@ private: // メンバ変数
 	std::list<ParticleClass*> particles_;
 	GaugeClass* gauge = nullptr;
 	std::list<HPbar*> hpbars_;
+
+	bool gameclear;
+	bool gameover;
 
  private:
 	/// <summary>
