@@ -83,6 +83,9 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (input->PushKey(DIK_SPACE)) {
 				gameIsStart = true;
 				gameIsTitle = false;
+				delete gameScene;
+				gameScene = nullptr;
+				gameScene = new GameScene();
 				gameScene->Initialize();
 			}
 		} else if (gameIsStart) {
