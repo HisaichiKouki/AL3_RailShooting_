@@ -320,7 +320,7 @@ void GameScene::CheckAllCollisions() {
 	// posA = player_->GetWorldPosition();
 
 	for (auto* enemy : enemys_) {
-
+		boomerang->SetTargetEnemy(enemy);
 		CheckCollisionPair(boomerang, enemy);
 	}
 	for (auto* enemy : enemys_) {

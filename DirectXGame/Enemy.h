@@ -51,6 +51,9 @@ public:
 	bool GetIsStop() { return isStop; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
 	int GetHitPoint() {return currentHitPoint;}
+	
+bool GetPreHit() { return preHit; }
+
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;

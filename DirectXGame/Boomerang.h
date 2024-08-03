@@ -12,8 +12,7 @@
 #include "Vector3AndMatrix4x4.h"
 #include <Audio.h>
 
-
-
+class Enemy;
 class PlayerBoomerang;
 enum class PhaseBoomerang 
 {
@@ -42,7 +41,10 @@ public:
 	void ReverceMove();
 	bool GetIsHold() { return isHold; }
 
+	void SetTargetEnemy(Enemy* set) { targetEenemy = set; }
+
 private:
+	Enemy* targetEenemy = nullptr;
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;

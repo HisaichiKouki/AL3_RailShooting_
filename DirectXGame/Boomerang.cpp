@@ -1,6 +1,8 @@
 #include "Boomerang.h"
 #include "PlayerBoomerang.h"
 #include <cassert>
+#include "Enemy.h"
+
 void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	assert(model);
 	model_ = model;
@@ -104,15 +106,24 @@ void Boomerang::PlayerPosXY() {
 
 void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 	// バウンドする
-	if (reverceCoolTime <= 0) {
-		preHit = true;
-		// 進行方向の力を代入
+	//if (reverceCoolTime <= 0) {
+	//	preHit = true;
+	//	// 進行方向の力を代入
+	//	velocity.z += boundPower * moveDire;
+	//	// 跳ね返るので力の向きを反転
+	//	velocity.z *= -1;
+	//	boundCoolTime = 4.0f;   // すぐに戻せないようにするためのクールタイム
+	//	reverceCoolTime = 5.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
+	//}
+
+	if (!targetEenemy->GetPreHit()) {
 		velocity.z += boundPower * moveDire;
 		// 跳ね返るので力の向きを反転
 		velocity.z *= -1;
-		boundCoolTime = 4.0f;   // すぐに戻せないようにするためのクールタイム
-		reverceCoolTime = 5.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
+		boundCoolTime = 4.0f; // すぐに戻せないようにするためのクールタイム
+
 	}
+	
 	
 	
 }
