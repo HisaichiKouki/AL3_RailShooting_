@@ -25,7 +25,10 @@ void ShakeClass::Update() {
 	currentShakeNum--;
 	if (currentShakeNum <= 0) {
 		isShake = false;
-		worldTransform->translation_ = initPos;
+		if (worldTransform != nullptr) {
+			worldTransform->translation_ = initPos;
+		} 
+		vector3pos = initPos;
 		currentShakeTime = 0;
 		return;
 	}
@@ -33,22 +36,26 @@ void ShakeClass::Update() {
 	currentShakeSize = initShakeSize * (currentShakeNum / initShakeNum);
 	newPos = initPos;
 	if (currentShakeSize != 0) {
-		newPos.x = RandomValue(-currentShakeSize, currentShakeSize);
-		newPos.y = RandomValue(-currentShakeSize, currentShakeSize);
+		newPos.x += RandomValue(-currentShakeSize, currentShakeSize);
+		newPos.y += RandomValue(-currentShakeSize, currentShakeSize);
 	}
 
-	worldTransform->translation_ = newPos;
-	worldTransform->UpdateMatrix();
+	if (worldTransform != nullptr) {
+		worldTransform->translation_ = newPos;
+		worldTransform->UpdateMatrix();
+	}
+	vector3pos = newPos;
 }
 
 void ShakeClass::Start() {
 	isShake = true;
-	//initPos = worldTransform->translation_;
+	// initPos = worldTransform->translation_;
 	currentShakeTime = 0;
 	newPos = initPos;
 	currentShakeNum = initShakeNum;
 	currentShakeSize = initShakeSize;
 }
+
 
 float ShakeClass::RandomValue(float min, float max) {
 	std::random_device rd;

@@ -22,12 +22,32 @@ void NumberDrawClass::Init() {
 		drawNum[i] = (float)i;
 
 	}
+	shake = new ShakeClass;
+	preNum = 0;
+	currentNum = 0;
+	num = 1023030;//一回目を特例で設定する時に使う
 }
 
-void NumberDrawClass::Draw(const Vector2& pos, int32_t num) {
-	currentNum = num;
+void NumberDrawClass::Draw(const Vector2& pos, int32_t num_) {
+	if (num == 1023030) {
+		initPos = {pos.x, pos.y, 0};
+		shake->SetVector3(initPos);
+		
+		
+		shake->SetParamater(1, 20, 1500);
+		preNum = num_;
+		num = num_;
+	}
 	
+	preNum = num;
+	currentNum = num_;
+	num = num_;
+	if (preNum != num) {
+		shake->Start();
+	}
 
+	shake->Update();
+	initPos = shake->Value();
 	for (int i = 0; i < numDigits; i++) {
 		sprite[i]->SetSize({0, 0});
 
@@ -45,7 +65,7 @@ void NumberDrawClass::Draw(const Vector2& pos, int32_t num) {
 		} else {
 			break;
 		}
-		sprite[i]->SetPosition({pos.x - (float)i * width * scale.x, pos.y});     // スクリーンに描画する場所をずらす
+		sprite[i]->SetPosition({initPos.x - (float)i * width * scale.x, initPos.y}); // スクリーンに描画する場所をずらす
 		sprite[i]->SetTextureRect({drawNum[i] * width, 0}, {width, initSize.y}); // テクスチャの描画範囲を指定する
 		sprite[i]->SetSize({width * scale.x, initSize.y * scale.y});             // 描画するサイズを決める
 		sprite[i]->Draw();
