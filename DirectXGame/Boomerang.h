@@ -10,7 +10,7 @@
 
 #include "Collider.h"
 #include "Vector3AndMatrix4x4.h"
-
+#include <Audio.h>
 
 
 
@@ -64,6 +64,9 @@ private:
 	int maxAttackPower=100;
 	bool preHit;
 	bool isHold;
-
+	Audio* audio_ = nullptr;
+	uint32_t soundHandle1 = 0;
+	uint32_t soundHandle2 = 0;
+	uint32_t vh = 0;
 };
 

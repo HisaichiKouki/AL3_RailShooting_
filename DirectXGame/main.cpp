@@ -21,7 +21,7 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	bool gameIsStart = false;
 	bool gameIsClear = false;
 	bool gameIsOver = false;
-
+	
 	// ゲームウィンドウの作成
 	win = WinApp::GetInstance();
 	win->CreateGameWindow();
@@ -42,7 +42,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 	// オーディオの初期化
 	audio = Audio::GetInstance();
 	audio->Initialize();
-
+	uint32_t bgmSH = 0;
+	uint32_t bgmVH = 0;
+	bgmSH = audio->LoadWave("./Resources/Sounds/BGM.mp3");
+	bgmVH = audio->PlayWave(bgmSH, true, 0.1f);
 	// テクスチャマネージャの初期化
 	TextureManager::GetInstance()->Initialize(dxCommon->GetDevice());
 	TextureManager::Load("white1x1.png");
@@ -129,6 +132,10 @@ int WINAPI WinMain(HINSTANCE, HINSTANCE, LPSTR, int) {
 			if (input->TriggerKey(DIK_SPACE)) {
 				gameIsOver = false;
 				gameIsTitle = true;
+			} else if (input->TriggerKey(DIK_R)) {
+				gameIsOver = false;
+				gameIsStart = true;
+				gameScene->SetHitPoint(3);
 			}
 		}
 

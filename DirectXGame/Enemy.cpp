@@ -182,7 +182,7 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 			currentStopTime = 0;//停止時間初期化
 
 			if (boomerang_->GetPower()==boomerang_->GetMaxPower()) {
-				currentHitPoint -= boomerang_->GetPower()*3;
+				currentHitPoint -= boomerang_->GetPower()*4;
 			} else {
 				currentHitPoint -= boomerang_->GetPower();
 			}

@@ -50,7 +50,7 @@ public:
 
 	bool GetIsStop() { return isStop; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
-	int GetHitPoint() { return currentHitPoint; }
+	int GetHitPoint() {return currentHitPoint;}
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;

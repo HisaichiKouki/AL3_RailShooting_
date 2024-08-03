@@ -10,6 +10,9 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	SetRadius(1);
 	SetName("boomerang");
 	reverceCoolTime = 0;
+	audio_ = Audio::GetInstance();
+	soundHandle1 = audio_->LoadWave("./Resources/Sounds/slow.mp3");
+	soundHandle2 = audio_->LoadWave("./Resources/Sounds/speedSlow.mp3");
 }
 
 void Boomerang::Update() {
@@ -27,6 +30,12 @@ void Boomerang::Update() {
 	ImGui::Text("attackPower=%f", attackPower);
 	ImGui::End();
 #endif // _DEBUG
+
+	if (player->GetHitPoint()<=0) {
+		if (vh != 0) {
+			audio_->StopWave(vh);
+		}
+	}
 }
 
 void Boomerang::Draw(ViewProjection& viewProjection) { model_->Draw(worldTransform_, viewProjection, textureHandle_); }
@@ -71,9 +80,14 @@ void Boomerang::Move() {
 void Boomerang::Hold() {
 	isHold = true;
 	PlayerPosXY();
+	if (vh != 0) {
+		audio_->StopWave(vh);
+	}
 	if (input->TriggerKey(DIK_SPACE)) {
 		phase = PhaseBoomerang::kMove;
 		velocity.z = throwPower;
+		audio_->PlayWave(soundHandle1, false, 0.3f);
+		vh=audio_->PlayWave(soundHandle2, true, 0.2f);
 	}
 }
 
@@ -93,7 +107,7 @@ void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 		// 跳ね返るので力の向きを反転
 		velocity.z *= -1;
 		boundCoolTime = 4.0f;   // すぐに戻せないようにするためのクールタイム
-		reverceCoolTime = 10.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
+		reverceCoolTime = 5.0f; // 重なってる敵にぶつかった時に連続して判定が起きないように
 	}
 	
 	

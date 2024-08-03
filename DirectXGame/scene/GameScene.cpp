@@ -109,7 +109,7 @@ void GameScene::Initialize() {
 	boomerang->Init(boomerangModel, boomerangTex);
 	// boomerang->SetPlayer(playerBoom_);
 	boomerang->SetParent(&playerBoom_->GetWorldTransform());
-
+	boomerang->SetPlayer(playerBoom_);
 	prediction = new Prediction;
 	predictionModel = Model::CreateFromOBJ("prediction", true);
 	predictionTex = TextureManager::Load("./Resources/addTexture/prediction.png");
@@ -125,8 +125,8 @@ void GameScene::Initialize() {
 	killNumTex->SetCamera(&railCamera_->GetWorldTransform());
 	audio_->GetInstance();
 	killSoundHandle = audio_->LoadWave("./Resources/Sounds/Kill.wav");
-	bgmSH = audio_->LoadWave("./Resources/Sounds/BGM.mp3");
-	bgmVH = audio_->PlayWave(bgmSH, true, 0.1f);
+	/*bgmSH = audio_->LoadWave("./Resources/Sounds/BGM.mp3");
+	bgmVH = audio_->PlayWave(bgmSH, true, 0.1f);*/
 	gauge = new GaugeClass;
 	gauge->SetCamera(&railCamera_->GetWorldTransform());
 	gauge->SetPlayer(boomerang);

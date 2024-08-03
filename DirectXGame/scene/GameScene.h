@@ -77,6 +77,15 @@ public: // メンバ関数
 	//ゲームクリア、ゲームオーバーどちらかを判定する
 	void GameJudgement();
 
+	void SetHitPoint(int value) { playerBoom_->SetHitPoint(value);
+		isChange = false;
+		change2over = false;
+		gameover = false;
+		changeTime = 0;
+
+
+	}
+
 	private: // メンバ変数
 	DirectXCommon* dxCommon_ = nullptr;
 	Input* input_ = nullptr;
@@ -132,8 +141,8 @@ public: // メンバ関数
 	uint32_t killSoundHandle = 0;
 	uint32_t killVoiceHandle = 0;
 
-	uint32_t bgmSH = 0;
-	uint32_t bgmVH = 0;
+	/*uint32_t bgmSH = 0;
+	uint32_t bgmVH = 0;*/
 
 	std::list<ParticleClass*> particles_;
 	GaugeClass* gauge = nullptr;

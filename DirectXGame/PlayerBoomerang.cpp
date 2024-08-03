@@ -25,6 +25,9 @@ void PlayerBoomerang::Initialize(Model* model, uint32_t textureHandle, const Vec
 	barriarTransform.Initialize();
 	barriarTransform.scale_ = {2, 2, 2};
 	barriarTex = TextureManager::Load("white1x1.png");
+	audio_ = Audio::GetInstance();
+	soundHandle1 = audio_->LoadWave("./Resources/Sounds/damage1.mp3");
+	soundHandle2 = audio_->LoadWave("./Resources/Sounds/damage2.mp3");
 }
 
 void PlayerBoomerang::Update() {
@@ -153,5 +156,7 @@ void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) {
 	if (barriar <= 0) {
 		hitPoint--;
 		barriar = 90;
+		audio_->PlayWave(soundHandle1, false, 0.2f);
+		audio_->PlayWave(soundHandle2, false, 0.2f);
 	}
 }
