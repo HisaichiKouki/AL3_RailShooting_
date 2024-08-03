@@ -33,6 +33,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	initScale = worldTransform_.scale_;
 	audio_ = Audio::GetInstance();
 	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
+	soundHandle2 = audio_->LoadWave("./Resources/Sounds/kill2.mp3");
 
 
 	isStop = false;
@@ -192,6 +193,7 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 					gameScene_->AddKillCount();
 					gameScene_->AddEffect(GetWorldPosition());
 					isDead_ = true;
+					audio_->PlayWave(soundHandle2, false, 0.3f);
 				}
 			}
 		}
