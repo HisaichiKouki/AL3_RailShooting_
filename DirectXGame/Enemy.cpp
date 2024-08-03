@@ -23,7 +23,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
 	worldTransform_.scale_ = {2.0f, 2.0f, 2.0f};
-	textureHandle_ = TextureManager::Load("sample.png");
+	textureHandle_ = TextureManager::Load("enemy.png");
 	// pFunc = &Enemy::ApproachMove;
 	// Fire();
 	isDead_ = false;
@@ -34,6 +34,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	audio_ = Audio::GetInstance();
 	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
 	soundHandle2 = audio_->LoadWave("./Resources/Sounds/kill2.mp3");
+	soundHandle3 = audio_->LoadWave("./Resources/Sounds/critical.mp3");
 
 
 	isStop = false;
@@ -184,7 +185,9 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 
 			if (boomerang_->GetPower()==boomerang_->GetMaxPower()) {
 				currentHitPoint -= boomerang_->GetPower()*4;
+				audio_->PlayWave(soundHandle3, false, 0.23f);
 			} else {
+
 				currentHitPoint -= boomerang_->GetPower();
 			}
 			

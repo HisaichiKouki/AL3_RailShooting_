@@ -6,6 +6,7 @@ GaugeClass::~GaugeClass() {
 	delete backSprite;
 	delete frontSprite;
 	delete textSprite;
+	delete uiSprite;
 }
 
 void GaugeClass::Init() {
@@ -16,10 +17,14 @@ void GaugeClass::Init() {
 	frontSprite = Sprite::Create(frontTexHandle, pos);
 	textTexHandle = TextureManager::Load(textTex);
 	textSprite = Sprite::Create(textTexHandle, pos);
+	uiTexHandle = TextureManager::Load(uiTex);
+	uiSprite = Sprite::Create(uiTexHandle, pos);
 
 	initSize = backSprite->GetSize();
 	initSize2 = textSprite->GetSize();
+	initSize3 = uiSprite->GetSize();
 	currentSize = initSize;
+	currentPos2 = initSize;
 	currentPos = pos;
 	raito = 0;
 }
@@ -38,7 +43,7 @@ void GaugeClass::Update() {
 #ifdef _DEBUG
 
 	ImGui::Begin("Gauge");
-	ImGui::DragFloat2("Pos", &currentPos.x, 1);
+	ImGui::DragFloat2("currentPos2", &currentPos2.x, 1);
 	ImGui::DragFloat2("Scale", &scale.x, 1);
 	ImGui::DragFloat("Raito", &raito, 0.01f);
 	ImGui::End();
@@ -52,6 +57,9 @@ void GaugeClass::Draw() {
 		textSprite->Draw();
 	}
 	
+	uiSprite->SetPosition({31,516});
+	uiSprite->SetSize({initSize3.x / 2, initSize3.y / 2});
+	uiSprite->Draw();
 
 	backSprite->SetPosition(currentPos);
 	//backSprite->SetSize(initSize * scale);

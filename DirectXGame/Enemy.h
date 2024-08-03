@@ -88,6 +88,7 @@ public:
 	Audio* audio_ = nullptr;
 	uint32_t soundHandle = 0;
 	uint32_t soundHandle2 = 0;
+	uint32_t soundHandle3 = 0;
 	uint32_t voiceHandle = 0;
 
 	

@@ -31,10 +31,15 @@ private:
 	uint32_t textTexHandle;
 	std::string textTex = "./Resources/addTexture/gaugeText.png";
 	Sprite* textSprite = nullptr;
+	uint32_t uiTexHandle;
+	std::string uiTex = "./Resources/addTexture/ui.png";
+	Sprite* uiSprite = nullptr;
 	Vector2 pos = {835, 565};
 	Vector2 currentPos;
+	Vector2 currentPos2;
 	Vector2 initSize;
 	Vector2 initSize2;
+	Vector2 initSize3;
 	Vector2 scale = {1, 1};
 	float raito;
 	Vector2 currentSize;
