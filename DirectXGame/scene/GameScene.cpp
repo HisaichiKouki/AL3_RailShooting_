@@ -83,6 +83,7 @@ void GameScene::Initialize() {
 	modelSkydome_ = Model::CreateFromOBJ("skyholl", true);
 	skydome_->Init(modelSkydome_);
 	railCamera_ = new RailCamera();
+	railCamera_->SetGameScene(this);
 	railCamera_->Init({0.0f, 0.0f, -9.0f}, player_->GetWorldTransform().rotation_); // player_->GetWorldTransform().rotation_
 	viewProjection_.matView = railCamera_->GetViewProjection().matView;
 	viewProjection_.matProjection = railCamera_->GetViewProjection().matProjection;
@@ -180,11 +181,14 @@ void GameScene::Update() {
 		}
 		return false;
 	});
+
 	railCamera_->Update();
 
 	skydome_->Update();
 	// player_->Update();
-	playerBoom_->Update();
+	if (!isChange) {
+		playerBoom_->Update();
+	}
 	boomerang->Update();
 	gauge->Update();
 	prediction->SetWorldPos(playerBoom_->GetWorldPosition());
@@ -512,7 +516,7 @@ void GameScene::GameJudgement() {
 
 	} else {
 		changeTime++;
-		if (changeTime > 60) {
+		if (changeTime > 90) {
 
 			if (change2Clear) {
 				gameclear = true;

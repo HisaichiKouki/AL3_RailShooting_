@@ -6,6 +6,7 @@
 #endif
 
 #include "Enemy.h"
+
 class EnemyRotateClass {
 public:
 	void Init(Enemy* setEnemy, float rotateZ,float setRotateSpeed);

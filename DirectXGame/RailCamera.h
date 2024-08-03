@@ -8,6 +8,7 @@
 #include <Input.h>
 
 #include "ShakeClass.h"
+class GameScene;
 class RailCamera
 {
 public:
@@ -17,6 +18,7 @@ public:
 	const ViewProjection& GetViewProjection() { return viewprojection_; }
 	const WorldTransform& GetWorldTransform() { return worldTransfome_; }
 	void ShakeStart();
+	void SetGameScene(GameScene* set) { gameScene = set; }
 
 private:
 	WorldTransform worldTransfome_;
@@ -27,6 +29,6 @@ private:
 	float rotateSpeed = 0.05f;
 	Input* input_ = nullptr;
 	ShakeClass* shake = nullptr;
-
+	GameScene* gameScene = nullptr;
 };
 

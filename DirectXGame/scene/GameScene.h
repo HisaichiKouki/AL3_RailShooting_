@@ -63,7 +63,9 @@ public: // メンバ関数
 	void LoadEnemyPopDate();
 	void UpdateEnemyPopCommands();
 	void AddKillCount() {
-
+		if (isChange) {
+			return;
+		}
 		killCount--;
 		killVoiceHandle = audio_->PlayWave(killSoundHandle);
 		audio_->SetVolume(killVoiceHandle, 1.0f);
@@ -71,7 +73,7 @@ public: // メンバ関数
 	void AddEffect(const Vector3& pos);
 	bool GetClear() { return gameclear; }
 	bool GetOver() { return gameover; }
-
+	bool GetIsChange() { return isChange; }
 	//ゲームクリア、ゲームオーバーどちらかを判定する
 	void GameJudgement();
 

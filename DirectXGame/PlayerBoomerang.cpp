@@ -30,7 +30,7 @@ void PlayerBoomerang::Initialize(Model* model, uint32_t textureHandle, const Vec
 void PlayerBoomerang::Update() {
 	barriar--;
 	if (barriar > 0) {
-		barriarTransform.scale_ = {3, 3, 3};
+		barriarTransform.scale_ = {4, 2, 2};
 
 	} else {
 		barriarTransform.scale_ = {0, 0, 0};
@@ -38,7 +38,7 @@ void PlayerBoomerang::Update() {
 	}
 	Move();
 	worldTransform_.UpdateMatrix();
-
+	barriarTransform.rotation_.z += 0.2f;
 	barriarTransform.translation_ = GetWorldPosition();
 	barriarTransform.UpdateMatrix();
 }

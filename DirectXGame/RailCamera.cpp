@@ -1,5 +1,5 @@
 #include "RailCamera.h"
-
+#include <GameScene.h>
 void RailCamera::Init(const Vector3& worldPos, const Vector3& rotate) {
 	worldTransfome_.Initialize();
 	worldTransfome_.translation_ = worldPos;
@@ -15,20 +15,24 @@ void RailCamera::Update() {
 	worldTransfome_.translation_ += velocity_;
 	worldTransfome_.rotation_ += rotate_;
 
-	if (input_->PushKey(DIK_A)) {
-		worldTransfome_.rotation_.z -= rotateSpeed;
+	if (!gameScene->GetIsChange()) {
+		if (input_->PushKey(DIK_A)) {
+			worldTransfome_.rotation_.z -= rotateSpeed;
+		}
+		if (input_->PushKey(DIK_D)) {
+			worldTransfome_.rotation_.z += rotateSpeed;
+		}
 	}
-	if (input_->PushKey(DIK_D)) {
-		worldTransfome_.rotation_.z += rotateSpeed;
-	}
+	
 
-	if (input_->PushKey(DIK_G)) {
-		shake->Start();
-	}
+	
 	shake->Update();
 	// worldTransfome_.UpdateMatrix();
 
 #ifdef _DEBUG
+	if (input_->PushKey(DIK_G)) {
+		shake->Start();
+	}
 	ImGui::Begin("Camera");
 	ImGui::DragFloat3("translate", &worldTransfome_.translation_.x, 0.1f);
 	ImGui::DragFloat3("rotate", &worldTransfome_.rotation_.x, 0.1f);
