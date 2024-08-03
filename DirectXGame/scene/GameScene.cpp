@@ -120,7 +120,7 @@ void GameScene::Initialize() {
 	predictionColor->TransferMatrix();
 	// predictionColor.Initialize();
 	// predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
-	killCount = 1;
+	killCount = 10;
 	killNumTex = new NumberDrawClass;
 	killNumTex->SetCamera(&railCamera_->GetWorldTransform());
 	audio_->GetInstance();
