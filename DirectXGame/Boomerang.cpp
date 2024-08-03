@@ -13,6 +13,7 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	audio_ = Audio::GetInstance();
 	soundHandle1 = audio_->LoadWave("./Resources/Sounds/slow.mp3");
 	soundHandle2 = audio_->LoadWave("./Resources/Sounds/speedSlow.mp3");
+	soundHandle3 = audio_->LoadWave("./Resources/Sounds/powerUP.mp3");
 }
 
 void Boomerang::Update() {
@@ -64,6 +65,9 @@ void Boomerang::Move() {
 
 	if (attackPower < maxAttackPower) {
 		attackPower++;
+		if (attackPower >= maxAttackPower) {
+			audio_->PlayWave(soundHandle3, false, 0.2f);
+		}
 	}
 	if (worldTransform_.translation_.z < 0) { // player->GetWorldPosition().z
 		attackPower = 0;

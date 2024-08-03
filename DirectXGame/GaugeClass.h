@@ -28,11 +28,16 @@ private:
 	uint32_t frontTexHandle;
 	std::string frontTexName = "./Resources/addTexture/gauge.png";
 	Sprite* frontSprite = nullptr;
-
+	uint32_t textTexHandle;
+	std::string textTex = "./Resources/addTexture/gaugeText.png";
+	Sprite* textSprite = nullptr;
 	Vector2 pos = {835, 565};
 	Vector2 currentPos;
 	Vector2 initSize;
+	Vector2 initSize2;
 	Vector2 scale = {1, 1};
 	float raito;
 	Vector2 currentSize;
+
+	
 };
