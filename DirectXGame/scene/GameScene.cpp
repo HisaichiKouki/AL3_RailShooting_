@@ -119,7 +119,7 @@ void GameScene::Initialize() {
 	predictionColor->TransferMatrix();
 	//predictionColor.Initialize();
 	//predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
-	killCount = 0;
+	killCount = 50;
 	killNumTex = new NumberDrawClass;
 
 	audio_->GetInstance();
@@ -441,17 +441,20 @@ void GameScene::UpdateEnemyPopCommands()
 			float rotateZ = (float)std::atof(word.c_str());
 			getline(line_stream, word, ',');
 			int hitPoint = (int)std::atof(word.c_str());
+			getline(line_stream, word, ',');
+			float rotateSpeed = (float)std::atof(word.c_str());
 			/*getline(line_stream, word, ',');
 			float z = (float)std::atof(word.c_str());*/
 			/*getline(line_stream, word, ',');
 			float rotateZ = (float)std::atof(word.c_str());*/
-			EnemyRotateClass* enemyRotate;
-			enemyRotate = new EnemyRotateClass;
-			enemyRotate->Init(rotateZ);
+			
 			Enemy* spownEnemy = new Enemy;
 			spownEnemy->SetGameScene(this);
 			spownEnemy->SetPlayer(playerBoom_);
-			
+
+			EnemyRotateClass* enemyRotate;
+			enemyRotate = new EnemyRotateClass;
+			enemyRotate->Init(spownEnemy,rotateZ,rotateSpeed);
 			spownEnemy->SetParent(&enemyRotate->GetWorldTransform());
 			
 			spownEnemy->Initialize(model_, Vector3(0, -10, posZ));

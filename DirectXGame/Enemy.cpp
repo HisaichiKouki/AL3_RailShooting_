@@ -34,7 +34,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
 
 
-
+	isStop = false;
 	preHit = false;
 	// ApproachInitialize();
 }
@@ -129,6 +129,7 @@ void Enemy::Stoping() {
 
 		phase_ = Phase::Approach;
 		worldTransform_.scale_ = initScale;
+		isStop = false;
 	}
 }
 
@@ -168,7 +169,7 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 			voiceHandle = audio_->PlayWave(soundHandle);//効果音
 			audio_->SetVolume(voiceHandle, 0.3f);
 
-
+			isStop = true;
 			phase_ = Phase::Stoppage;//状態変化
 			preHit = true;
 
@@ -180,7 +181,7 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 			if (currentHitPoint <= 0) {
 				if (!isDead_) {
 					gameScene_->AddKillCount();
-					gameScene_->AddEffect(worldTransform_.translation_);
+					gameScene_->AddEffect(GetWorldPosition());
 					isDead_ = true;
 				}
 			}

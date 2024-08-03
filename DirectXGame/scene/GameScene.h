@@ -62,7 +62,7 @@ public: // メンバ関数
 	void UpdateEnemyPopCommands();
 	void AddKillCount() {
 
-		killCount++;
+		killCount--;
 		killVoiceHandle = audio_->PlayWave(killSoundHandle);
 		audio_->SetVolume(killVoiceHandle, 1.0f);
 	}

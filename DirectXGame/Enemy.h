@@ -48,7 +48,9 @@ public:
 	bool IsDead() { return isDead_; }
 	void SetHitPoint(int value) { currentHitPoint = value; }
 
-private:
+	bool GetIsStop() { return isStop; }
+
+	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_;
@@ -77,6 +79,7 @@ private:
 	bool isDead_;
 	const int stopTime=60;
 	int currentStopTime;
+	bool isStop;
 
 	int currentHitPoint;
 	int setHitPoint = 1000;
