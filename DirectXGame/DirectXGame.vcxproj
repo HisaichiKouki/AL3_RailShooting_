@@ -120,6 +120,7 @@
     <ClCompile Include="EnemyRotateClass.cpp" />
     <ClCompile Include="FadeClass.cpp" />
     <ClCompile Include="GaugeClass.cpp" />
+    <ClCompile Include="HeartClass.cpp" />
     <ClCompile Include="HPbar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NumberDrawClass.cpp" />
@@ -170,6 +171,7 @@
     <ClInclude Include="EnemyRotateClass.h" />
     <ClInclude Include="FadeClass.h" />
     <ClInclude Include="GaugeClass.h" />
+    <ClInclude Include="HeartClass.h" />
     <ClInclude Include="HPbar.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\Matrix4x4.h" />

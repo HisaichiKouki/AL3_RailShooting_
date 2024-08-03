@@ -8,7 +8,8 @@
 #ifdef _DEBUG
 #include <imgui.h>
 #endif // _DEBUG
-
+#include "HeartClass.h"
+#include "PlayerBoomerang.h"
 class GaugeClass {
 public:
 	GaugeClass();
@@ -18,10 +19,12 @@ public:
 	void Draw();
 	void SetCamera(const WorldTransform* set) { cameraPos = set; }
 	void SetPlayer(Boomerang* set) { boomerang = set; }
+	void SetPlayer(PlayerBoomerang* set) { player = set; }
 
 private:
 	const WorldTransform* cameraPos;
 	Boomerang* boomerang = nullptr;
+	PlayerBoomerang* player = nullptr;
 	uint32_t backTexHandle;
 	std::string backTexName = "./Resources/addTexture/gaugeBack.png";
 	Sprite* backSprite = nullptr;
@@ -46,6 +49,5 @@ private:
 	Vector2 scale = {1, 1};
 	float raito;
 	Vector2 currentSize;
-
-	
+	HeartClass* heart[3] = {nullptr};
 };

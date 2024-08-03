@@ -98,7 +98,7 @@ void GameScene::Initialize() {
 	playerBoom_ = new PlayerBoomerang;
 	playerModel_ = Model::CreateFromOBJ("player", true);
 	playerTex_ = TextureManager::Load("./Resources/addTexture/player.png");
-	playerPosition = {0, -10, 6.5f};
+	playerPosition = {0, -8.5f, 6.5f};
 	playerBoom_->SetParent(&railCamera_->GetWorldTransform());
 	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
 	playerBoom_->SetCamera(railCamera_);
@@ -130,6 +130,7 @@ void GameScene::Initialize() {
 	gauge = new GaugeClass;
 	gauge->SetCamera(&railCamera_->GetWorldTransform());
 	gauge->SetPlayer(boomerang);
+	gauge->SetPlayer(playerBoom_);
 	// particle = new ParticleClass;
 	// particle->Init(model_, {0, 0, 0});
 	gameclear = false;

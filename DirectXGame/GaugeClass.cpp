@@ -8,6 +8,9 @@ GaugeClass::~GaugeClass() {
 	delete textSprite;
 	delete uiSprite;
 	delete ui2Sprite;
+	for (int i = 0; i < 3; i++) {
+		delete heart[i];
+	}
 }
 
 void GaugeClass::Init() {
@@ -30,6 +33,10 @@ void GaugeClass::Init() {
 	currentPos2 = initSize;
 	currentPos = pos;
 	raito = 0;
+	
+	for (int i = 0; i < 3; i++) {
+		heart[i] = new HeartClass;
+	}
 }
 
 void GaugeClass::Update() {
@@ -43,6 +50,10 @@ void GaugeClass::Update() {
 	currentPos = pos;
 	currentPos.x -= cameraPos->translation_.x * 20;
 	currentPos.y -= cameraPos->translation_.y * 20;
+
+	for (int i = 0; i < 3; i++) {
+		heart[i]->Updaet();
+	}
 #ifdef _DEBUG
 
 	ImGui::Begin("Gauge");
@@ -75,4 +86,15 @@ void GaugeClass::Draw() {
 	frontSprite->SetPosition(currentPos);
 	frontSprite->SetSize(currentSize * scale);
 	frontSprite->Draw();
+
+	if (player->GetHitPoint() > 0) {
+		heart[0]->Draw({540, 660});
+	}
+	if (player->GetHitPoint() > 1) {
+		heart[1]->Draw({640, 660});
+	}
+	if (player->GetHitPoint() > 2) {
+		heart[2]->Draw({740, 660});
+	}
+	
 }
