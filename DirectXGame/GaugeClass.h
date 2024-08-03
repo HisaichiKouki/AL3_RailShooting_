@@ -34,6 +34,9 @@ private:
 	uint32_t uiTexHandle;
 	std::string uiTex = "./Resources/addTexture/ui.png";
 	Sprite* uiSprite = nullptr;
+	uint32_t ui2TexHandle;
+	std::string ui2Tex = "./Resources/addTexture/ui2.png";
+	Sprite* ui2Sprite = nullptr;
 	Vector2 pos = {835, 565};
 	Vector2 currentPos;
 	Vector2 currentPos2;

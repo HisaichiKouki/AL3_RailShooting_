@@ -20,7 +20,7 @@ private:
 	const WorldTransform* camera = nullptr;
 	uint32_t texHandle;
 	std::string texName = "./Resources/addTexture/number-Sheet.png";
-	
+
 	Sprite* sprite[5] = {nullptr, nullptr};
 	Vector2 initSize;
 	Vector2 scale;

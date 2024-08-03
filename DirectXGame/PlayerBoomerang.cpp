@@ -128,6 +128,7 @@ void PlayerBoomerang::Move() {
 	}
 	moveEaseT = std::clamp(moveEaseT, 0.0f, 100.0f);
 	worldTransform_.translation_.x = InOutQuad(moveEaseT, 100, -2, 2);
+	worldTransform_.rotation_.z = InOutQuad(moveEaseT, 100, -0.2f, 0.2f);
 	// 画面外に出ないように
 	worldTransform_.translation_.x = max(worldTransform_.translation_.x, -kMoveLimitX);
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);

@@ -7,6 +7,7 @@ GaugeClass::~GaugeClass() {
 	delete frontSprite;
 	delete textSprite;
 	delete uiSprite;
+	delete ui2Sprite;
 }
 
 void GaugeClass::Init() {
@@ -19,6 +20,8 @@ void GaugeClass::Init() {
 	textSprite = Sprite::Create(textTexHandle, pos);
 	uiTexHandle = TextureManager::Load(uiTex);
 	uiSprite = Sprite::Create(uiTexHandle, pos);
+	ui2TexHandle = TextureManager::Load(ui2Tex);
+	ui2Sprite = Sprite::Create(ui2TexHandle, pos);
 
 	initSize = backSprite->GetSize();
 	initSize2 = textSprite->GetSize();
@@ -57,9 +60,12 @@ void GaugeClass::Draw() {
 		textSprite->Draw();
 	}
 	
-	uiSprite->SetPosition({31,516});
+	uiSprite->SetPosition({31 - cameraPos->translation_.x * 20, 516 - cameraPos->translation_.y * 20});
 	uiSprite->SetSize({initSize3.x / 2, initSize3.y / 2});
 	uiSprite->Draw();
+
+	ui2Sprite->SetPosition({-cameraPos->translation_.x * 20, -cameraPos->translation_.y * 20});
+	ui2Sprite->Draw();
 
 	backSprite->SetPosition(currentPos);
 	//backSprite->SetSize(initSize * scale);
