@@ -6,7 +6,7 @@
 #include <Input.h>
 
 #endif // _DEBUG
-
+#include "ShakeClass.h"
 class RailCamera
 {
 public:
@@ -15,6 +15,7 @@ public:
 	
 	const ViewProjection& GetViewProjection() { return viewprojection_; }
 	const WorldTransform& GetWorldTransform() { return worldTransfome_; }
+	void ShakeStart();
 
 private:
 	WorldTransform worldTransfome_;
@@ -24,5 +25,7 @@ private:
 	Vector3 rotate_ = { 0.0f,0.000f,0.0f };
 	float rotateSpeed = 0.05f;
 	Input* input_ = nullptr;
+	ShakeClass* shake = nullptr;
+
 };
 

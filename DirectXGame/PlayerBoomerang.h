@@ -15,7 +15,7 @@
 #include "Collider.h"
 #include "Vector3AndMatrix4x4.h"
 #include "Easing.h"
-
+#include "RailCamera.h"
 
 class PlayerBoomerang :public Collider
 {
@@ -35,6 +35,7 @@ public:
 	void OnCollision([[maybe_unused]] Collider* other) override;
 	void SetParent(const WorldTransform* parent) { worldTransform_.parent_ = parent; }
 	const WorldTransform& GetWorldTransform() { return worldTransform_; }
+	void SetCamera(RailCamera* setCamera) { camera = setCamera; }
 
 private:
 	WorldTransform worldTransform_;
@@ -51,5 +52,6 @@ private:
 
 	float moveEaseT;
 	float fastEaseT=15;//100-fastEaseTしてfastEaseTのフレーム分スキップする
+	RailCamera* camera = nullptr;
 };
 

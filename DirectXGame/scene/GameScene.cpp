@@ -100,7 +100,7 @@ void GameScene::Initialize() {
 	playerPosition = {0, -10, 6.5f};
 	playerBoom_->SetParent(&railCamera_->GetWorldTransform());
 	playerBoom_->Initialize(playerModel_, playerTex_, playerPosition);
-
+	playerBoom_->SetCamera(railCamera_);
 
 	boomerang = new Boomerang;
 	boomerangModel = Model::CreateFromOBJ("boomerang", true);

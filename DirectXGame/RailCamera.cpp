@@ -7,6 +7,8 @@ void RailCamera::Init(const Vector3& worldPos, const Vector3& rotate) {
 	viewprojection_.farZ = 1000;
 	viewprojection_.Initialize();
 	input_ = Input::GetInstance();
+	shake = new ShakeClass;
+	shake->SetWorldTransfrom(&this->worldTransfome_);
 }
 
 void RailCamera::Update() {
@@ -19,7 +21,11 @@ void RailCamera::Update() {
 	if (input_->PushKey(DIK_D)) {
 		worldTransfome_.rotation_.z += rotateSpeed;
 	}
-	
+
+	if (input_->PushKey(DIK_G)) {
+		shake->Start();
+	}
+	shake->Update();
 	// worldTransfome_.UpdateMatrix();
 
 #ifdef _DEBUG
@@ -33,3 +39,5 @@ void RailCamera::Update() {
 
 	viewprojection_.matView = Inverse(worldTransfome_.matWorld_);
 }
+
+void RailCamera::ShakeStart() { shake->Start(); }

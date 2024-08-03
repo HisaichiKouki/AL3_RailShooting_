@@ -119,4 +119,6 @@ Vector3 PlayerBoomerang::GetWorldPosition() {
 	return worldPos;
 }
 
-void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) {}
+void PlayerBoomerang::OnCollision([[maybe_unused]] Collider* other) { camera->ShakeStart();
+
+}
