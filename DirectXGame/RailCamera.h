@@ -3,9 +3,10 @@
 #include <ViewProjection.h>
 #ifdef _DEBUG
 #include <imgui.h>
-#include <Input.h>
 
 #endif // _DEBUG
+#include <Input.h>
+
 #include "ShakeClass.h"
 class RailCamera
 {

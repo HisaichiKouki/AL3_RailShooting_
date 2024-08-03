@@ -4,6 +4,7 @@
 #include <Sprite.h>
 #include <Audio.h>
 #include "ShakeClass.h"
+#include <WorldTransform.h>
 const int numDigits = 5;
 
 class NumberDrawClass {
@@ -13,8 +14,10 @@ public:
 	~NumberDrawClass();
 	void Init();
 	void Draw(const Vector2& pos, int32_t num_);
+	void SetCamera(const WorldTransform* set) { camera = set; }
 
 private:
+	const WorldTransform* camera = nullptr;
 	uint32_t texHandle;
 	std::string texName = "./Resources/addTexture/number-Sheet.png";
 	

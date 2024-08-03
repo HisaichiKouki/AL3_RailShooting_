@@ -22,6 +22,8 @@
 #include "SkyDome.h"
 #include <ObjectColor.h>
 #include <sstream>
+#include "GaugeClass.h"
+#include "HPbar.h"
 /// <summary>
 /// ゲームシーン
 /// </summary>
@@ -127,8 +129,10 @@ private: // メンバ変数
 	uint32_t bgmVH = 0;
 
 	std::list<ParticleClass*> particles_;
+	GaugeClass* gauge = nullptr;
+	std::list<HPbar*> hpbars_;
 
-private:
+ private:
 	/// <summary>
 	/// コライダー２つの衝突判定と応答
 	/// </summary>

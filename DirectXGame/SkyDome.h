@@ -2,7 +2,10 @@
 #include <WorldTransform.h>
 #include <ViewProjection.h>
 #include <Model.h>
+#ifdef _DEBUG
+
 #include <imgui.h>
+#endif
 class SkyDome
 {
 public:

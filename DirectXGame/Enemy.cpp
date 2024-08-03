@@ -15,6 +15,7 @@ Enemy::~Enemy() {
 
 		delete timedCall;
 	}
+	
 }
 
 void Enemy::Initialize(Model* model, const Vector3& position) {
@@ -36,6 +37,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 
 	isStop = false;
 	preHit = false;
+
 	// ApproachInitialize();
 }
 
@@ -47,7 +49,6 @@ void Enemy::Update() {
 	// worldTransform_.translation_ += velocity_;
 	// SwitchPhase();
 	//(this->*pFunc)();
-
 #ifdef _DEBUG
 	// ImGui::SliderFloat("homingPower", &homingPower, 0.0f, 1.0f);
 	// ImGui::Text("currentStopTime=%d", currentStopTime);
@@ -58,7 +59,10 @@ void Enemy::Update() {
 #endif // _DEBUG
 }
 
-void Enemy::Draw(const ViewProjection& viewprojection) { model_->Draw(worldTransform_, viewprojection, textureHandle_); }
+void Enemy::Draw(const ViewProjection& viewprojection) {
+	model_->Draw(worldTransform_, viewprojection, textureHandle_);
+	
+}
 
 void Enemy::SwitchPhase() {
 	// pFunc = &Enemy::ApproachMove;
@@ -177,7 +181,12 @@ void Enemy::OnCollision([[maybe_unused]] Collider* other) {
 			boomerang_->ReverceMove();//ブーメランの進行方向を変える
 			currentStopTime = 0;//停止時間初期化
 
-			currentHitPoint -= boomerang_->GetPower();
+			if (boomerang_->GetPower()==boomerang_->GetMaxPower()) {
+				currentHitPoint -= boomerang_->GetPower()*3;
+			} else {
+				currentHitPoint -= boomerang_->GetPower();
+			}
+			
 			if (currentHitPoint <= 0) {
 				if (!isDead_) {
 					gameScene_->AddKillCount();

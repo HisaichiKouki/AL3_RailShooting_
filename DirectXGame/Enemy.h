@@ -49,7 +49,8 @@ public:
 	void SetHitPoint(int value) { currentHitPoint = value; }
 
 	bool GetIsStop() { return isStop; }
-
+	const WorldTransform& GetWorldTransform() { return worldTransform_; }
+	int GetHitPoint() { return currentHitPoint; }
 	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
@@ -90,7 +91,6 @@ public:
 
 	
 	bool preHit;
-
 
 public:
 	static const int32_t kFireCoolTime = 30 * 1;

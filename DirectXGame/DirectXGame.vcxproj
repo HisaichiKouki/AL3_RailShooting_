@@ -118,6 +118,8 @@
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="EnemyRotateClass.cpp" />
+    <ClCompile Include="GaugeClass.cpp" />
+    <ClCompile Include="HPbar.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="NumberDrawClass.cpp" />
     <ClCompile Include="ParticleChildClass.cpp" />
@@ -165,6 +167,8 @@
     <ClInclude Include="Enemy.h" />
     <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="EnemyRotateClass.h" />
+    <ClInclude Include="GaugeClass.h" />
+    <ClInclude Include="HPbar.h" />
     <ClInclude Include="input\Input.h" />
     <ClInclude Include="math\Matrix4x4.h" />
     <ClInclude Include="math\Vector2.h" />

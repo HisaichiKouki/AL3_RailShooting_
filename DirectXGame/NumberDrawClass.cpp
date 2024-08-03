@@ -65,7 +65,7 @@ void NumberDrawClass::Draw(const Vector2& pos, int32_t num_) {
 		} else {
 			break;
 		}
-		sprite[i]->SetPosition({initPos.x - (float)i * width * scale.x, initPos.y}); // スクリーンに描画する場所をずらす
+		sprite[i]->SetPosition({initPos.x - (float)i * width * scale.x - camera->translation_.x * 20, initPos.y - camera->translation_.y * 20}); // スクリーンに描画する場所をずらす
 		sprite[i]->SetTextureRect({drawNum[i] * width, 0}, {width, initSize.y}); // テクスチャの描画範囲を指定する
 		sprite[i]->SetSize({width * scale.x, initSize.y * scale.y});             // 描画するサイズを決める
 		sprite[i]->Draw();

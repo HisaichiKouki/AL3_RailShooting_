@@ -104,11 +104,13 @@ void PlayerBoomerang::Move() {
 	worldTransform_.translation_.x = min(worldTransform_.translation_.x, +kMoveLimitX);
 	worldTransform_.translation_.y = max(worldTransform_.translation_.y, -kMoveLimitY);
 	worldTransform_.translation_.y = min(worldTransform_.translation_.y, +kMoveLimitY);
+#ifdef _DEBUG
 
 	ImGui::Begin("PlayerMove");
 
 	ImGui::Text("moveEaseT=%f,fastEaseT=%d", moveEaseT, fastEaseT);
 	ImGui::End();
+	#endif
 }
 
 Vector3 PlayerBoomerang::GetWorldPosition() {

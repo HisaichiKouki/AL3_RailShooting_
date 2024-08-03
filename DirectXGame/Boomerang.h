@@ -37,6 +37,7 @@ public:
 
 	Vector3 GetWorldPosition() override;
 	int GetPower() { return attackPower; }
+	int GetMaxPower() { return maxAttackPower; }
 
 	void ReverceMove();
 	bool GetIsHold() { return isHold; }
