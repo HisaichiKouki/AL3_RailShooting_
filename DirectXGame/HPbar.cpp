@@ -56,8 +56,8 @@ void HPbar::SetEnemy(Enemy* set) {
 
 	} else if (initHp >= 1000) {
 		objColor->SetColor({1.0f, 0.6f, 1.0f, 0.9f});
-	} else if (initHp >= 500) {
-		objColor->SetColor({0.2f, 0.8f, 0.8f, 0.8f});
+	} else if (initHp >= 400) {
+		objColor->SetColor({0.2f, 0.6f, 1.0f, 0.8f});
 	} else {
 
 		objColor->SetColor({0.2f, 0.8f, 0.2f, 0.8f});

@@ -453,7 +453,7 @@ void GameScene::UpdateEnemyPopCommands() {
 			getline(line_stream, word, ',');
 			float posZ = (float)std::atof(word.c_str());
 			getline(line_stream, word, ',');
-			float rotateZ = (float)std::atof(word.c_str());
+			float rotateZ = (float)std::atof(word.c_str());		
 			getline(line_stream, word, ',');
 			int hitPoint = (int)std::atof(word.c_str());
 			getline(line_stream, word, ',');
@@ -462,7 +462,10 @@ void GameScene::UpdateEnemyPopCommands() {
 			float z = (float)std::atof(word.c_str());*/
 			/*getline(line_stream, word, ',');
 			float rotateZ = (float)std::atof(word.c_str());*/
-
+			rotateZ *= 3.14159265f;
+			if (rotateZ != 0) {
+				rotateZ /= 180;
+			}
 			Enemy* spownEnemy = new Enemy;
 			spownEnemy->SetGameScene(this);
 			spownEnemy->SetPlayer(playerBoom_);
