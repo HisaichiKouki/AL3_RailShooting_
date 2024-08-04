@@ -120,7 +120,7 @@ void Boomerang::OnCollision([[maybe_unused]] Collider* other) {
 		velocity.z += boundPower * moveDire;
 		// 跳ね返るので力の向きを反転
 		velocity.z *= -1;
-		boundCoolTime = 4.0f; // すぐに戻せないようにするためのクールタイム
+		boundCoolTime = 2.0f; // すぐに戻せないようにするためのクールタイム
 
 	}
 	

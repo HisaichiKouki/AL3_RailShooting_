@@ -116,11 +116,11 @@ void GameScene::Initialize() {
 	prediction->Initialize(predictionModel, predictionTex);
 	predictionColor = new ObjectColor;
 	predictionColor->Initialize();
-	predictionColor->SetColor(Vector4{1.0f, 1.0f, 1.0f, 0.4f});
+	predictionColor->SetColor(Vector4{1.0f, 1.0f, 1.0f, 0.1f});
 	predictionColor->TransferMatrix();
 	// predictionColor.Initialize();
 	// predictionColor.SetColor(Vector4{ 1,0,0,0.4f });
-	killCount = 10;
+	killCount = 50;
 	killNumTex = new NumberDrawClass;
 	killNumTex->SetCamera(&railCamera_->GetWorldTransform());
 	audio_->GetInstance();
@@ -140,7 +140,8 @@ void GameScene::Initialize() {
 
 void GameScene::Update() {
 	gameTimer++;
-	if (input_->PushKey(DIK_SPACE)) {
+	if (input_->PushKey(DIK_ESCAPE)) {
+		playerBoom_->SetHitPoint(0);
 		// particle = new ParticleClass;
 		// particle->Init(model_, {0, 0, 0});
 	}
@@ -192,7 +193,7 @@ void GameScene::Update() {
 	}
 	boomerang->Update();
 	gauge->Update();
-	prediction->SetWorldPos(playerBoom_->GetWorldPosition());
+	prediction->SetWorldPos(boomerang->GetWorldPosition());
 	/*if (enemy_)
 	{
 	    enemy_->Update();
