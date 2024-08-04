@@ -81,7 +81,7 @@ void GaugeClass::Draw() {
 
 	ui2Sprite->SetPosition({-cameraPos->translation_.x * 20, -cameraPos->translation_.y * 20});
 	ui2Sprite->Draw();
-	ui3Sprite->SetPosition({20-cameraPos->translation_.x * 20,270 -cameraPos->translation_.y * 20});
+	ui3Sprite->SetPosition({-cameraPos->translation_.x * 20,270 -cameraPos->translation_.y * 20});
 	if (!boomerang->GetIsHold()) {
 		ui3Sprite->Draw();
 	}
