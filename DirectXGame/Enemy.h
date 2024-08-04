@@ -92,8 +92,11 @@ bool GetPreHit() { return preHit; }
 	uint32_t soundHandle = 0;
 	uint32_t soundHandle2 = 0;
 	uint32_t soundHandle3 = 0;
+	uint32_t soundHandle4 = 0;
 	uint32_t voiceHandle = 0;
 
+	float currentT;
+	float currentScale;
 	
 	bool preHit;
 

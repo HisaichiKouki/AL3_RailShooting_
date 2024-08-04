@@ -22,7 +22,7 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	model_ = model;
 	worldTransform_.Initialize();
 	worldTransform_.translation_ = position;
-	worldTransform_.scale_ = {2.0f, 2.0f, 2.0f};
+	worldTransform_.scale_ = {2, 2, 2};
 	textureHandle_ = TextureManager::Load("enemy.png");
 	// pFunc = &Enemy::ApproachMove;
 	// Fire();
@@ -35,15 +35,28 @@ void Enemy::Initialize(Model* model, const Vector3& position) {
 	soundHandle = audio_->LoadWave("./Resources/Sounds/Attack.mp3");
 	soundHandle2 = audio_->LoadWave("./Resources/Sounds/kill2.mp3");
 	soundHandle3 = audio_->LoadWave("./Resources/Sounds/critical.mp3");
+	soundHandle4 = audio_->LoadWave("./Resources/Sounds/spawn.mp3");
 
 
 	isStop = false;
 	preHit = false;
-
+	currentT = 0;
+	currentScale = 0;
 	// ApproachInitialize();
 }
 
 void Enemy::Update() {
+
+	if (currentT<=45) {
+		if (currentT == 0) {
+			audio_->PlayWave(soundHandle4, false, 0.2f);
+		}
+		currentT++;
+		currentScale = OutElastic(currentT, 45, 0, 2,1.5f,0.3f);
+		worldTransform_.scale_. x = currentScale;
+		worldTransform_.scale_. y = currentScale;
+		worldTransform_.scale_. z = currentScale;
+	}
 	(this->*spFuncTable[static_cast<size_t>(phase_)])();
 
 	// worldTransform_.translation_ = Add(worldTransform_.translation_,velocity_);

@@ -60,3 +60,17 @@ float OutElasticAmplitude(float t, float totaltime, float amplitude, float perio
 
 	return amplitude * powf(2.0f, -10.0f * t) * sinf((t - s) * (2.0f * float(3.141592f)) / period);
 }
+
+float OutElastic(float t, float totaltime, float min, float max, float amplitude = 1.0f, float period = 0.3f) {
+	if (t <= 0.0f)
+		return min;
+	if (t >= totaltime)
+		return max;
+
+	float s = period / (2.0f * (float)3.141592f) * asinf(1.0f);
+	t /= totaltime;
+
+	float deltaValue = max - min;
+
+	return min + deltaValue * (amplitude * powf(2.0f, -10.0f * t) * sinf((t - s) * (2.0f * (float)3.141592f) / period) + 1.0f);
+}
