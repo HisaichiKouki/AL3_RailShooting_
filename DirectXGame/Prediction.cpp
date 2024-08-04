@@ -22,6 +22,6 @@ void Prediction::Draw(ViewProjection& viewProjection, ObjectColor* objectColor)
 
 void Prediction::SetWorldPos(const Vector3& pos)
 {
-	worldTransform_.translation_.z = pos.z;
+	worldTransform_.translation_.z = pos.z-0.6f;
 	worldTransform_.UpdateMatrix();
 }
