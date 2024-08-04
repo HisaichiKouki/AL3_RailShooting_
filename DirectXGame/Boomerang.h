@@ -72,5 +72,7 @@ private:
 	uint32_t soundHandle2 = 0;
 	uint32_t soundHandle3 = 0;
 	uint32_t vh = 0;
+	uint32_t soundHandle4 = 0;
+	uint32_t vh2 = 0;
 };
 

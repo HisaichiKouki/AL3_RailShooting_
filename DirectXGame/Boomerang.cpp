@@ -16,6 +16,7 @@ void Boomerang::Init(Model* model, uint32_t textureHandle) {
 	soundHandle1 = audio_->LoadWave("./Resources/Sounds/slow.mp3");
 	soundHandle2 = audio_->LoadWave("./Resources/Sounds/speedSlow.mp3");
 	soundHandle3 = audio_->LoadWave("./Resources/Sounds/powerUP.mp3");
+	soundHandle4 = audio_->LoadWave("./Resources/Sounds/back.mp3");
 }
 
 void Boomerang::Update() {
@@ -35,9 +36,7 @@ void Boomerang::Update() {
 #endif // _DEBUG
 
 	if (player->GetHitPoint()<=0) {
-		if (vh != 0) {
-			audio_->StopWave(vh);
-		}
+		StopSE();
 	}
 }
 
@@ -49,11 +48,18 @@ void Boomerang::Move() {
 
 	// スペースを押してる間は早く戻る
 	// ずっと押してると連続攻撃できるからちょっとcoolTimeを付けた。
+	
 	if (input->PushKey(DIK_SPACE) && boundCoolTime <= 0) {
 
 		velocity.z -= returnPower * 5;
 		rotate.y += kRotateSpeed * 3;
+		if (input->TriggerKey(DIK_SPACE)) {
+			vh2 = audio_->PlayWave(soundHandle4, true, 0.6f);
+		}
 	} else {
+		if (vh2 != 0) {
+			audio_->StopWave(vh2);
+		}
 		velocity.z -= returnPower;
 		rotate.y += kRotateSpeed;
 	}
@@ -86,9 +92,7 @@ void Boomerang::Move() {
 void Boomerang::Hold() {
 	isHold = true;
 	PlayerPosXY();
-	if (vh != 0) {
-		audio_->StopWave(vh);
-	}
+	StopSE();
 	if (input->TriggerKey(DIK_SPACE)) {
 		phase = PhaseBoomerang::kMove;
 		velocity.z = throwPower;
@@ -146,6 +150,9 @@ void Boomerang::ReverceMove() {
 void Boomerang::StopSE() {
 	if (vh != 0) {
 		audio_->StopWave(vh);
+	}
+	if (vh2 != 0) {
+		audio_->StopWave(vh2);
 	}
 }
 

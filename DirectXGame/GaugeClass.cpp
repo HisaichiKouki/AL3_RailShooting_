@@ -8,6 +8,7 @@ GaugeClass::~GaugeClass() {
 	delete textSprite;
 	delete uiSprite;
 	delete ui2Sprite;
+	delete ui3Sprite;
 	for (int i = 0; i < 3; i++) {
 		delete heart[i];
 	}
@@ -25,6 +26,9 @@ void GaugeClass::Init() {
 	uiSprite = Sprite::Create(uiTexHandle, pos);
 	ui2TexHandle = TextureManager::Load(ui2Tex);
 	ui2Sprite = Sprite::Create(ui2TexHandle, pos);
+	ui3TexHandle = TextureManager::Load(ui3Tex);
+	ui3Sprite = Sprite::Create(ui3TexHandle, pos);
+
 
 	initSize = backSprite->GetSize();
 	initSize2 = textSprite->GetSize();
@@ -77,6 +81,11 @@ void GaugeClass::Draw() {
 
 	ui2Sprite->SetPosition({-cameraPos->translation_.x * 20, -cameraPos->translation_.y * 20});
 	ui2Sprite->Draw();
+	ui3Sprite->SetPosition({20-cameraPos->translation_.x * 20,270 -cameraPos->translation_.y * 20});
+	if (!boomerang->GetIsHold()) {
+		ui3Sprite->Draw();
+	}
+		
 
 	backSprite->SetPosition(currentPos);
 	//backSprite->SetSize(initSize * scale);

@@ -40,7 +40,7 @@ public:
 		barriar = 90;
 	}
 
-private:
+	private:
 	WorldTransform worldTransform_;
 	Model* model_ = nullptr;
 	uint32_t textureHandle_ = 0u;
@@ -67,4 +67,5 @@ private:
 	Audio* audio_ = nullptr;
 	uint32_t soundHandle1 = 0;
 	uint32_t soundHandle2 = 0;
+
 };
