@@ -13,8 +13,8 @@ void HPbar::Init() {
 	textureHandle_ = TextureManager::Load("white1x1.png");
 	objColor = new ObjectColor;
 	objColor->Initialize();
-	objColor->SetColor({0.2f, 0.8f, 0.2f, 0.8f});
-	objColor->TransferMatrix();
+	//objColor->SetColor({0.2f, 0.8f, 0.2f, 0.8f});
+	//objColor->TransferMatrix();
 	worldTransform_.Initialize();
 	worldTransform_.translation_.y = 2.0f;
 	worldTransform_.scale_ = {1.2f, 0.3f, 0.15f};
@@ -41,7 +41,7 @@ void HPbar::Update() {
 	worldTransform_.scale_ = {1.2f * raito, 0.3f, 0.15f};
 
 	worldTransform_.UpdateMatrix();
-	isDead=enemy->IsDead();
+	isDead = enemy->IsDead();
 }
 
 void HPbar::Draw(const ViewProjection& viewprojection) { model_->Draw(worldTransform_, viewprojection, textureHandle_, objColor); }
@@ -51,4 +51,16 @@ void HPbar::SetEnemy(Enemy* set) {
 
 	worldTransform_.parent_ = &enemy->GetWorldTransform();
 	initHp = (float)enemy->GetHitPoint();
+	if (initHp >= 2000) {
+		objColor->SetColor({1.0f, 0.1f, 0.2f, 0.8f});
+
+	} else if (initHp >= 1000) {
+		objColor->SetColor({1.0f, 0.6f, 1.0f, 0.9f});
+	} else if (initHp >= 500) {
+		objColor->SetColor({0.2f, 0.8f, 0.8f, 0.8f});
+	} else {
+
+		objColor->SetColor({0.2f, 0.8f, 0.2f, 0.8f});
+	}
+	objColor->TransferMatrix();
 }
